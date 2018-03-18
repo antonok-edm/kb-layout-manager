@@ -1,0 +1,66 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+
+	<title>kb layout manager</title>
+	<meta name="description" content="quickly create new keyboard layouts">
+	<meta name="author" content="Anton Lazarev">
+
+	<link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+	<link rel="stylesheet" href="style.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js"></script>
+</head>
+
+<body>
+	<div id="body">
+	<div id="header">
+		<div id="header-info">
+			<div id="title">kb layout manager</div>
+			<div id="source"><a target="_blank" href="https://github.com/antonok-edm/kb">view source on github</a></div>
+		</div>
+		<div id="header-controls">
+			<div class="option-label">layer</div>
+			<select id="layer-select" v-model="current_layer">
+				<option v-for="layer in layers" v-bind:value="layers.indexOf(layer)">{{ layer }}</option>
+			</select>
+		</div>
+	</div>
+	<div id="keyboard-container">
+		<div id="keyboard-spacer"></div>
+		<div id="keyboard" v-bind:style="{ transform: 'scale(' + scale + ')' }">
+			<div class="keyboard-row" v-for="y in height">
+				<keyboard-key v-for="x in width" :x="x-1" :y="y-1" :key_data="keys[y-1][x-1].data" :key_type="keys[y-1][x-1].type" :is_active="x-1 == focused_key.x && y-1 == focused_key.y" v-on:updatekey="processKeyUpdate" v-on:focuskey="updateKeyFocus"></keyboard-key>
+			</div>
+		</div>
+		<div id="keyboard-spacer"></div>
+	</div>
+	<div id="bottom-controls">
+		<div class="options-section">
+			<div class="options-title"> zoom </div>
+			<button v-on:click="scale=scale*.95">-</button>
+			<button v-on:click="scale=scale*1.05">+</button>
+		</div>
+		<div class="options-section">
+			<div class="options-title"> layers </div>
+			<input id="newlayername" v-model="newlayername" placeholder="name for new layer"></input>
+			<button v-on:click="addLayer" v-bind:disabled="newlayername == ''">add blank layer</button>
+			<button v-on:click="addLayer" v-bind:disabled="newlayername == ''">copy current layer to new layer</button>
+		</div>
+		<div class="options-section">
+			<div class="options-title"> export </div>
+			<button v-on:click="exportMaps">download layermaps.c</button>
+			<button v-on:click="exportMapsServer" v-bind:disabled="!server_connected">send to server</button>
+			<input type="checkbox" v-model="option_backup">backup</input>
+			<input type="checkbox" v-model="option_make">make</input>
+			<input type="checkbox" v-model="option_flash">flash</input>
+			<input type="checkbox" v-model="option_clean">clean</input>
+		</div>
+		<status-popup :current_status="server_status" :error_message="server_error_message" v-on:hide_status="set_idle"></status-popup>
+	</div>
+	<script src="client.js"></script>
+</body>
+</html>
