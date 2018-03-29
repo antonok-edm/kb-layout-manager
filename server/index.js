@@ -9,7 +9,7 @@ const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
 // Port to run on
-const PORT = 17407;
+const PORT = 17469;
 
 // Directory of keyboard firmware
 const firmware_dir = path.join('..', '..', 'kb', 'firmware');
