@@ -13,3 +13,6 @@ kb-layout-manager provides a clean, modern, and intuitive method for editing and
 On its own, a web interface has no way of interfacing with the computer's filesystem, compiling C code, or flashing firmware to hardware.
 The backend server for kb-layout-manager is written in NodeJS and is meant to be run locally on the user's computer, allowing automatic file loading, backups, compilation, and firmware flashing.
 The web client uses websockets to automatically connect to the server whenever it is running.
+
+## license
+kb-layout-manager is licensed under GPLv3. See LICENSE for more information.
