@@ -14,15 +14,18 @@ const PORT = 17407;
 // Directory of keyboard firmware
 const firmware_dir = path.join('..', '..', 'kb', 'firmware');
 
+// Directory of layermaps directory
+const layermaps_dir = path.join(firmware_dir, 'layermaps');
+
 // All possible server operations
 const operations = ['backup', 'write', 'make', 'flash', 'clean'];
 
 // Shell commands corresponding to server operations
 const ext_commands = {
-	backup: "cp " + path.join(firmware_dir, 'layermaps.c') +
-		" " + path.join(firmware_dir, 'layermaps.c.bak'),
+	backup: "cp " + path.join(layermaps_dir, 'layermaps.c') +
+		" " + path.join(layermaps_dir, 'layermaps.c.bak'),
 	write: "mv " + path.join('/tmp', 'layermaps.c') +
-		" " + path.join(firmware_dir, 'layermaps.c'),
+		" " + path.join(layermaps_dir, 'layermaps.c'),
 	make: "make -C " + firmware_dir,
 	flash: "teensy_loader_cli --mcu=atmega32u4 -w "
 		+ path.join(firmware_dir, 'firmware.hex'),
@@ -33,7 +36,7 @@ const ext_commands = {
 io.on('connection', socket => {
 	console.log('Client connected.');
 	// Read layermaps.c file directly from firmware directory and send it
-	fs.readFile(path.join(firmware_dir, 'layermaps.c'),
+	fs.readFile(path.join(layermaps_dir, 'layermaps.c'),
 		'ascii',
 		(err, layermaps_text) => {
 			if(err) {

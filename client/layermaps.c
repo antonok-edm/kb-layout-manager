@@ -1,6 +1,6 @@
 // created by antonok's kb layout manager on Sun Mar 18 2018
-// 	www.github.com/antonok-edm/kb
-// 	www.github.com/antonok-edm/kb-layout-manager
+// 	www.gitlab.com/antonok/kb
+// 	www.gitlab.com/antonok/kb-layout-manager
 
 KEYMAP(QWERTY) {
 {HID(_ESCAPE),HID(_1_EXCLAMATION),HID(_2_AT),HID(_3_HASHMARK),HID(_4_DOLLAR),HID(_5_PERCENTAGE),HID(_6_CARET),HID(_7_AMPERSAND),HID(_8_ASTERISK),HID(_9_OPENING_PARENTHESIS),HID(_0_CLOSING_PARENTHESIS),HID(_MINUS_AND_UNDERSCORE),HID(_EQUAL_AND_PLUS),HID(_BACKSPACE)},

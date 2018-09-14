@@ -7,8 +7,8 @@ const key_types = ["NONE","HID","MOD","MIDI","FUNC","TOGGLE","TARGET","CLICK",
 // Export header to be added to the beginning of the generated layermap file
 const export_header_format =
 	'// created by antonok\'s kb layout manager on %%DATE%%\n' +
-	'// 	www.github.com/antonok-edm/kb\n' +
-	'// 	www.github.com/antonok-edm/kb-layout-manager\n';
+	'// 	www.gitlab.com/antonok/kb\n' +
+	'// 	www.gitlab.com/antonok/kb-layout-manager\n';
 // Dimensions of the keyboard (number of keys)
 const WIDTH = 14;
 const HEIGHT = 5;
