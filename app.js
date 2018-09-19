@@ -12,7 +12,7 @@ const exec = util.promisify(require('child_process').exec);
 const PORT = 17407;
 
 // Directory of keyboard firmware
-const firmware_dir = path.join('..', '..', 'kb', 'firmware');
+const firmware_dir = path.join('..', 'kb', 'firmware');
 
 // Directory of layermaps directory
 const layermaps_dir = path.join(firmware_dir, 'layermaps');
@@ -92,4 +92,4 @@ http.listen(PORT, () =>
 	console.log('kb layout manager backend running on http://localhost:'
 		+ PORT));
 
-app.use(express.static(path.join('..', 'client')));
+app.use(express.static(path.join('dist')));
