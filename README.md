@@ -31,7 +31,7 @@ node app.js
 
 The layout manager will be accessible on localhost at port 17407.
 
-Flashing firmware to the keyboard requires the command-line Teensy loader to be installed.
+Flashing firmware to the keyboard requires [the command-line Teensy loader](https://github.com/PaulStoffregen/teensy_loader_cli) to be installed.
 
 ## license
 kb-layout-manager is licensed under GPLv3. See LICENSE for more information.
