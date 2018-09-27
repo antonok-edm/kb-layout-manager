@@ -18,8 +18,8 @@ module.exports = {
 				use: ['babel-loader', 'eslint-loader'],
 			},
 			{
-				test: /\.css$/,
-				loaders: ['style-loader', 'css-loader'],
+				test: /\.s?(c|a)?ss$/,
+				loaders: ['style-loader', 'css-loader', 'sass-loader'],
 			},
 			{
 				test: /\.html$/,
