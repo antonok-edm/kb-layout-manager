@@ -4,7 +4,8 @@ import Vue from 'vue/dist/vue.js';
 import './style.css';
 import './favicon.ico';
 import validateByType from './type_validation';
-import parseLayerMapsFile from './c_parser.js';
+import parseLayerMapsFile from './c_parser';
+import createExportFormat from './c_formatter';
 
 /*
  *      Global constants
@@ -12,11 +13,6 @@ import parseLayerMapsFile from './c_parser.js';
 // Every type that can be assigned to a key
 const key_types = ['NONE', 'HID', 'MOD', 'MIDI', 'FUNC', 'TOGGLE', 'TARGET', 'CLICK',
     'MOUSE_X', 'MOUSE_Y', 'SCROLL_X', 'SCROLL_Y', 'HIDMOD'];
-// Export header to be added to the beginning of the generated layermap file
-const export_header_format =
-  '// created by antonok\'s kb layout manager on %%DATE%%\n' +
-  '//     www.gitlab.com/antonok/kb\n' +
-  '//     www.gitlab.com/antonok/kb-layout-manager\n';
 // Dimensions of the keyboard (number of keys)
 const WIDTH = 14;
 const HEIGHT = 5;
@@ -301,32 +297,6 @@ fetch('layermaps.c')
             keyboard.layers = getLayernamesFromFileData(keyboard.file_data);
         }
     });
-
-// File export functions
-function createExportFormat(file_data) {
-    let contents = createExportHeader();
-    return file_data.reduce((accum, current) =>
-        accum + '\n' + createExportForLayer(current), contents);
-}
-function createExportForLayer(layer_data) {
-    let output = 'KEYMAP(' + layer_data.name + ') {';
-    return layer_data.map.reduce((accum, current) =>
-        accum + '\n' + createExportForRow(current), output).slice(0,-1) + '};\n';
-}
-function createExportForRow(row_data) {
-    return row_data.reduce((accum, current) =>
-        accum + createExportForKey(current), '{').slice(0,-1) + '},';
-}
-function createExportForKey(key_data) {
-    if(key_data.type == 'NONE')
-        return 'NONE,';
-    else
-        return key_data.type + '(' + key_data.data + '),';
-}
-function createExportHeader() {
-    let header = export_header_format.replace(/%%DATE%%/g, new Date().toDateString());
-    return header;
-}
 
 // Extracts only the layernames from a parsed layermaps.c file
 function getLayernamesFromFileData(file_data) {
