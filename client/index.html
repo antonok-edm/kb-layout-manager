@@ -57,7 +57,7 @@
 			<input type="checkbox" v-model="option_flash">flash</input>
 			<input type="checkbox" v-model="option_clean">clean</input>
 		</div>
-		<status-popup :current_status="server_status" :error_message="server_error_message" v-on:hide_status="set_idle"></status-popup>
+		<status-popup :current_status="server_status" :error_message="server_error_message" v-on:hide_status="set_idle" v-on:cancel_flash="cancel_flash"></status-popup>
 	</div>
 </body>
 </html>
