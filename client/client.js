@@ -2,6 +2,7 @@ import io from 'socket.io-client';
 import Vue from 'vue/dist/vue.js';
 
 import './style.css';
+import './favicon.ico';
 import validateByType from './type_validation';
 
 /*

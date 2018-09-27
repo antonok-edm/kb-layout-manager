@@ -24,6 +24,10 @@ module.exports = {
 				test: /\.html$/,
 				use: ['html-loader'],
 			},
+            {
+                test: /\.ico$/,
+                loader: 'file-loader?name=[name].[ext]',
+            },
 		],
 	},
 	plugins: [
