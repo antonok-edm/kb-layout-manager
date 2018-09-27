@@ -16,8 +16,6 @@ const export_header_format =
 // Dimensions of the keyboard (number of keys)
 const WIDTH = 14;
 const HEIGHT = 5;
-// URL of local server backend.
-const SERVER = 'http://localhost:17407';
 // Strings to be displayed corresponding to every state of the backend server
 const status_to_string = {
     'idle': 'Idle',
@@ -171,7 +169,7 @@ const status_popup = {
 };
 
 // Setup websocket connection using socket.io
-var socket = io.connect(SERVER);
+var socket = io.connect();
 
 socket.on('connect', () => keyboard.server_connected = true);
 
