@@ -25,6 +25,9 @@ cd kb-layout-manager
 # install dependencies
 npm install
 
+# build the clientside resources
+npm run build
+
 # run the app
 npm run server
 ```
