@@ -4,7 +4,7 @@ const { VueLoaderPlugin } = require("vue-loader");
 module.exports = {
 	mode: 'development',
 	entry: {
-		main: './client/client.js',
+		main: './src/client/client.js',
 	},
 	output: {
 		filename: 'client.js',
@@ -14,7 +14,7 @@ module.exports = {
 		rules: [
 			{
 				test: /\.js$/,
-				exclude: /(node_modules|dist|app.js)/,
+				//exclude: /(node_modules|dist|app.js)/,
 				use: ['babel-loader', 'eslint-loader'],
 			},
 			{
@@ -37,7 +37,7 @@ module.exports = {
 	},
 	plugins: [
 		new HtmlWebPackPlugin({
-			template: "client/index.html",
+			template: "src/client/index.html",
 			filename: "index.html",
 		}),
         new VueLoaderPlugin(),
