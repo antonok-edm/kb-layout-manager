@@ -1,10 +1,11 @@
+$monofont: "Iosevka", Monospace;
 body
 	margin: 0
 #body
 	background-color: #fff
 	padding: 0
 	margin: 0
-	font-family: Monospace
+	font-family: $monofont
 	display: flex
 	flex-direction: column
 	position: absolute
@@ -101,7 +102,7 @@ a
 	border: 1px solid #eee
 	box-sizing: border-box
 	border-bottom: none
-	font-family: Monospace
+	font-family: $monofont
 .keyboard-text:focus
 	width: 160px
 	line-height: 21px
@@ -163,7 +164,7 @@ select
 	box-sizing: border-box
 	appearance: none
 	-moz-appearance: none
-	font-family: Monospace
+	font-family: $monofont
 	margin: 0
 	padding: 0
 #bottom-controls
@@ -180,7 +181,7 @@ select
 	color: #222
 	line-height: 25px
 button
-	font-family: Monospace
+	font-family: $monofont
 	background-color: #fff
 	background: linear-gradient(to bottom, #fff 50%, #eee 100%)
 	border: 2px solid #ddd
@@ -199,7 +200,7 @@ button:hover:not(:disabled)
 button:active:not(:disabled)
 	box-shadow: none
 input
-	font-family: Monospace
+	font-family: $monofont
 #newlayername
 	border: 3px solid #ddd
 	border-radius: 3px
