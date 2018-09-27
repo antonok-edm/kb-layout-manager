@@ -3,10 +3,11 @@ import Vue from 'vue/dist/vue.js';
 
 import './style.css';
 import './favicon.ico';
+
 import parseLayerMapsFile from './c_parser';
 import createExportFormat from './c_formatter';
 
-import keyboard_key from './keyboard_key';
+import keyboard_key from './keyboard_key.vue';
 import status_popup from './status_popup.vue';
 
 /*

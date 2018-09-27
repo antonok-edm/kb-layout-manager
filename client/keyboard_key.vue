@@ -1,3 +1,23 @@
+<template>
+    <div class="keyboard-key" v-on:click="focusKey" v-bind:class="class_by_type">
+        <input ref="input"
+                class="keyboard-text"
+                v-bind:value="key_data"
+                v-on:input="updateKey(key_type, $event.target.value)">
+        </input>
+        <select ref="select"
+                class="keyboard-type"
+                v-bind:class="class_by_type"
+                v-bind:value="key_type"
+                v-on:input="updateKey($event.target.value, key_data)">
+            <option v-for="valid_type in valid_types" v-bind:value="valid_type">
+                {{ valid_type }}
+            </option>
+        </select>
+    </div>
+</template>
+
+<script>
 import validateByType from './type_validation';
 
 // Every type that can be assigned to a key
@@ -6,29 +26,10 @@ const key_types = ['NONE', 'HID', 'MOD', 'MIDI', 'FUNC', 'TOGGLE', 'TARGET', 'CL
 
 // Vue template for key elements on the keyboard visual
 const keyboard_key = {
-    props: ['x', 'y', 'key_type', 'key_data',
-        'is_active'],
+    props: ['x', 'y', 'key_type', 'key_data', 'is_active'],
     data: function() {
         return { valid_types: key_types };
     },
-    template: '<div class="keyboard-key" v-on:click="focusKey"' +
-            'v-bind:class="class_by_type">' +
-        '<input ref="input"' +
-                'class="keyboard-text"' +
-                'v-bind:value="key_data"' +
-                'v-on:input="updateKey(key_type, $event.target.value)">' +
-        '</input>' +
-        '<select ref="select"' +
-                'class="keyboard-type"' +
-                'v-bind:class="class_by_type"' +
-                'v-bind:value="key_type"' +
-                'v-on:input="updateKey($event.target.value, key_data)">' +
-            '<option v-for="valid_type in valid_types" ' +
-                    'v-bind:value="valid_type">' +
-                '{{ valid_type }}' +
-            '</option>' +
-        '</select>' +
-    '</div>',
     computed: {
         class_by_type: function() {
             return {
@@ -48,7 +49,7 @@ const keyboard_key = {
                 'type-scroll-y': this.key_type == 'SCROLL_Y',
                 'type-hidmod': this.key_type == 'HIDMOD'
             };
-        }
+        },
     },
     methods: {
         updateKey: function(new_type, new_data) {
@@ -58,8 +59,9 @@ const keyboard_key = {
         },
         focusKey: function() {
             this.$emit('focuskey', this.x, this.y);
-        }
-    }
+        },
+    },
 };
 
 export default keyboard_key;
+</script>
