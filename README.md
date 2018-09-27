@@ -26,7 +26,7 @@ cd kb-layout-manager
 npm install
 
 # run the app
-node app.js
+npm run server
 ```
 
 The layout manager will be accessible on localhost at port 17407.
