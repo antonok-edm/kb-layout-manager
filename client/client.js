@@ -7,7 +7,7 @@ import parseLayerMapsFile from './c_parser';
 import createExportFormat from './c_formatter';
 
 import keyboard_key from './keyboard_key';
-import status_popup from './status_popup';
+import status_popup from './status_popup.vue';
 
 /*
  *      Global constants
