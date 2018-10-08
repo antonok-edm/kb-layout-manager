@@ -68,13 +68,9 @@ a
     background-color: #d6d6d6
     margin: .125em
     padding: .32em
-    width: 3.2em
-    height: 3.2em
     display: inline-block
     box-shadow: .125em .125em .32em rgba(0,0,0,.5)
     border-radius: .125em
-    white-space: normal
-    z-index: 0
     position: relative
     &.type-none
     &.type-hid
@@ -95,6 +91,15 @@ a
     &.active
         box-shadow: 0 0 1.3em #222
         z-index: 10
+.key-face
+    background-color: #fff
+    margin: 0
+    padding: 0
+    white-space: normal
+    z-index: 0
+    position: relative
+    width: 3.2em
+    height: 3.2em
 $textPopupSideOffset: 6em;
 .keyboard-text
     margin: 0
