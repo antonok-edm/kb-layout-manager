@@ -25,8 +25,8 @@ body
 #source
 	color: #bbb
 	transition: all ease-in-out .15s
-#source:hover
-	color: #fff
+	&:hover
+		color: #fff
 a
 	color: unset
 	text-decoration: unset
@@ -72,25 +72,26 @@ a
 	white-space: normal
 	z-index: 0
 	position: relative
-.keyboard-key.type-none
-.keyboard-key.type-hid
-.keyboard-key.type-mod
-	background-color: #c6c6c6
-.keyboard-key.type-midi
-	background-color: #c6d6c6
-.keyboard-key.type-func
-	background-color: #d6c6c6
-.keyboard-key.type-toggle
-	background-color: #d6c6d6
-.keyboard-key.type-target
-	background-color: #d6c6d6
-.keyboard-key.type-click, .keyboard-key.type-mouse-x, .keyboard-key.type-mouse-y, .keyboard-key.type-scroll-x, .keyboard-key.type-scroll-y
-	background-color: #c6c6d6
-.keyboard-key.type-hidmod
-	background-color: #d6d6c6
-.keyboard-key.active
-	box-shadow: 0 0 1.3em #222
-	z-index: 10
+	&.type-none
+	&.type-hid
+	&.type-mod
+		background-color: #c6c6c6
+	&.type-midi
+		background-color: #c6d6c6
+	&.type-func
+		background-color: #d6c6c6
+	&.type-toggle
+		background-color: #d6c6d6
+	&.type-target
+		background-color: #d6c6d6
+	&.type-click, &.type-mouse-x, &.type-mouse-y, &.type-scroll-x, &.type-scroll-y
+		background-color: #c6c6d6
+	&.type-hidmod
+		background-color: #d6d6c6
+	&.active
+		box-shadow: 0 0 1.3em #222
+		z-index: 10
+$textPopupSideOffset: 6em;
 .keyboard-text
 	margin: 0
 	padding: 0
@@ -101,12 +102,12 @@ a
 	box-sizing: border-box
 	border-bottom: none
 	font-family: $monofont
-.keyboard-text:focus
-	width: 18.4em
-	z-index: 1000
-	margin-left: -6em
-	border-radius: .4em
-	box-shadow: 0 0 1.3em #000
+	&:focus
+		width: calc(6.4em + #{$textPopupSideOffset} * 2)
+		z-index: 1000
+		margin-left: -$textPopupSideOffset
+		border-radius: .4em
+		box-shadow: 0 0 1.3em #000
 .keyboard-type
 	background-color: #f8f8f8
 	background: linear-gradient(to bottom, #fff 0%, #eee 100%)
@@ -115,43 +116,43 @@ a
 	width: inherit
 	color: #888
 	position: relative
-.keyboard-text:focus + .keyboard-type
-	z-index: -2
-	position: relative
-.keyboard-type.type-none
-	background-color: #f8f8f8
-	background: linear-gradient(to bottom, #fff 0%, #eee 100%)
-	color: #ddd
-.keyboard-type.type-hid
-	//Default key style
-.keyboard-type.type-mod
-	background-color: #e4e4e4
-	background: linear-gradient(to bottom, #fff 0%, #ccc 100%)
-	color: #444
-.keyboard-type.type-midi
-	background-color: #f0f8f0
-	background: linear-gradient(to bottom, #fff 0%, #ded 100%)
-	color: #4b4
-.keyboard-type.type-func
-	background-color: #f8f0f0
-	background: linear-gradient(to bottom, #fff 0%, #edd 100%)
-	color: #b44
-.keyboard-type.type-toggle
-	background-color: #f8f0f8
-	background: linear-gradient(to bottom, #fff 0%, #ede 100%)
-	color: #b4b
-.keyboard-type.type-target
-	background-color: #f8f0f8
-	background: linear-gradient(to bottom, #fff 0%, #ede 100%)
-	color: #b4b
-.keyboard-type.type-click, .keyboard-type.type-mouse-x, .keyboard-type.type-mouse-y, .keyboard-type.type-scroll-x, .keyboard-type.type-scroll-y
-	background-color: #f0f0f8
-	background: linear-gradient(to bottom, #fff 0%, #dde 100%)
-	color: #44b
-.keyboard-type.type-hidmod
-	background-color: #f8f8f0
-	background: linear-gradient(to bottom, #fff 0%, #eed 100%)
-	color: #bb4
+	.keyboard-text:focus + &
+		z-index: -2
+		position: relative
+	&.type-none
+		background-color: #f8f8f8
+		background: linear-gradient(to bottom, #fff 0%, #eee 100%)
+		color: #ddd
+	&.type-hid
+		//Default key style
+	&.type-mod
+		background-color: #e4e4e4
+		background: linear-gradient(to bottom, #fff 0%, #ccc 100%)
+		color: #444
+	&.type-midi
+		background-color: #f0f8f0
+		background: linear-gradient(to bottom, #fff 0%, #ded 100%)
+		color: #4b4
+	&.type-func
+		background-color: #f8f0f0
+		background: linear-gradient(to bottom, #fff 0%, #edd 100%)
+		color: #b44
+	&.type-toggle
+		background-color: #f8f0f8
+		background: linear-gradient(to bottom, #fff 0%, #ede 100%)
+		color: #b4b
+	&.type-target
+		background-color: #f8f0f8
+		background: linear-gradient(to bottom, #fff 0%, #ede 100%)
+		color: #b4b
+	&.type-click, &.type-mouse-x, &.type-mouse-y, &.type-scroll-x, &.type-scroll-y
+		background-color: #f0f0f8
+		background: linear-gradient(to bottom, #fff 0%, #dde 100%)
+		color: #44b
+	&.type-hidmod
+		background-color: #f8f8f0
+		background: linear-gradient(to bottom, #fff 0%, #eed 100%)
+		color: #bb4
 select
 	font-size: .5em
 	height: 3.2em
@@ -184,15 +185,15 @@ button
 	margin: .375em
 	box-shadow: .15em .15em .375em rgba(0,0,0,.3)
 	color: #333
-button:disabled
-	background: transparent
-	box-shadow: none
-	color: #666
-button:hover:not(:disabled)
-	box-shadow: .15em .15em .375em rgba(0,0,0,.5)
-	color: #000
-button:active:not(:disabled)
-	box-shadow: none
+	&:disabled
+		background: transparent
+		box-shadow: none
+		color: #666
+	&:hover:not(:disabled)
+		box-shadow: .15em .15em .375em rgba(0,0,0,.5)
+		color: #000
+	&:active:not(:disabled)
+		box-shadow: none
 input
 	font-family: $monofont
 #newlayername
@@ -238,18 +239,18 @@ input
 	height: .16em
 	background: repeating-linear-gradient(-50deg, #333, #333 .5em, transparent .5em, transparent 1em), linear-gradient(20deg, #000, #444)
 	transition: width .5s ease-in
-.loading-bar.status-idle
-	width: 0
-.loading-bar.status-make
-	width: 18em * 1 / 4
-.loading-bar.status-flash
-	width: 18em * 2 / 4
-.loading-bar.status-clean
-	width: 18em * 3 / 4
-.loading-bar.status-done
-	width: 18em
-.loading-bar.status-error
-	width: 18em
-	background: repeating-linear-gradient(-50deg, #f66, #f66 .5em, transparent .5em, transparent 1em), linear-gradient(20deg, #f33, #f99)
+	&.status-idle
+		width: 0
+	&.status-make
+		width: 18em * 1 / 4
+	&.status-flash
+		width: 18em * 2 / 4
+	&.status-clean
+		width: 18em * 3 / 4
+	&.status-done
+		width: 18em
+	&.status-error
+		width: 18em
+		background: repeating-linear-gradient(-50deg, #f66, #f66 .5em, transparent .5em, transparent 1em), linear-gradient(20deg, #f33, #f99)
 .hidden
 	display: none !important
