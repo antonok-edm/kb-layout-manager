@@ -13,15 +13,15 @@ body
 	width: 100%
 #header
 	background-color: #222
-	border-bottom: 4px solid #bbb
-	padding: 20px
-	box-shadow: 0 4px 5px rgba(0,0,0,.5)
+	border-bottom: .25em solid #bbb
+	padding: 1.25em
+	box-shadow: 0 .25em .3em rgba(0,0,0,.5)
 #header-info
 	float: left
 #title
 	color: #fff
 	font-weight: 300
-	font-size: 30px
+	font-size: 2em
 #source
 	color: #bbb
 	transition: all ease-in-out .15s
@@ -32,45 +32,43 @@ a
 	text-decoration: unset
 #header-controls
 	float: right
-	margin: 15px 0
+	margin: 1em 0
 .option-label
 	float: left
 	color: #bbb
-	line-height: 25px
-	margin-right: 10px
+	line-height: 1.5em
+	margin-right: .6em
 #layer-select
-	width: 150px
+	width: 15em
 	background-color: #ccc
 	border: none
-	border-radius: 8px
+	border-radius: .8em
 #keyboard-container
 	overflow: auto
 	display: flex
 #keyboard-spacer
 	flex: 1
-@keyframes spinner
-	to {transform: rotate(360deg)}
 #keyboard
 	background-color: #333
-	background: repeating-linear-gradient(-50deg, #333, #333 8px, transparent 8px, transparent 16px), linear-gradient(20deg, #000, #444)
-	padding: 10px
-	margin: 40px 30px
+	background: repeating-linear-gradient(-50deg, #333, #333 .5em, transparent .5em, transparent 1em), linear-gradient(20deg, #000, #444)
+	padding: .6em
+	margin: 2.5em 2em
 	display: inline-block
-	border-radius: 8px
-	border: 4px solid #bbb
-	box-shadow: 4px 4px 5px rgba(0,0,0,.5)
+	border-radius: .5em
+	border: .25em solid #bbb
+	box-shadow: .25em .25em .3em rgba(0,0,0,.5)
 .keyboard-row
-	padding: 0px
+	padding: 0
 	white-space: nowrap
 .keyboard-key
 	background-color: #d6d6d6
-	margin: 2px
-	padding: 5px
-	width: 50px
-	height: 50px
+	margin: .125em
+	padding: .32em
+	width: 3.2em
+	height: 3.2em
 	display: inline-block
-	box-shadow: 2px 2px 5px rgba(0,0,0,.5)
-	border-radius: 2px
+	box-shadow: .125em .125em .32em rgba(0,0,0,.5)
+	border-radius: .125em
 	white-space: normal
 	z-index: 0
 	position: relative
@@ -91,27 +89,24 @@ a
 .keyboard-key.type-hidmod
 	background-color: #d6d6c6
 .keyboard-key.active
-	box-shadow: 0 0 20px #222
+	box-shadow: 0 0 1.3em #222
 	z-index: 10
 .keyboard-text
 	margin: 0
 	padding: 0
 	width: inherit
-	line-height: 25px
-	font-size: 8px
+	line-height: 3.2em
+	font-size: .5em
 	border: 1px solid #eee
 	box-sizing: border-box
 	border-bottom: none
 	font-family: $monofont
 .keyboard-text:focus
-	width: 160px
-	line-height: 21px
+	width: 18.4em
 	z-index: 1000
-	margin-left: -55px
-	margin-top: -1px
-	border: 3px solid #ccc
-	border-radius: 2px
-	box-shadow: 0 0 20px #000
+	margin-left: -6em
+	border-radius: .4em
+	box-shadow: 0 0 1.3em #000
 .keyboard-type
 	background-color: #f8f8f8
 	background: linear-gradient(to bottom, #fff 0%, #eee 100%)
@@ -158,9 +153,8 @@ a
 	background: linear-gradient(to bottom, #fff 0%, #eed 100%)
 	color: #bb4
 select
-	font-size: 10px
-	line-height: 25px
-	height: 25px
+	font-size: .5em
+	height: 3.2em
 	box-sizing: border-box
 	appearance: none
 	-moz-appearance: none
@@ -168,43 +162,43 @@ select
 	margin: 0
 	padding: 0
 #bottom-controls
-	border-top: 3px solid #bbb
+	border-top: .25em solid #bbb
 	background-color: #eee
 	flex: 1
-	box-shadow: 4px 4px 5px rgba(0,0,0,.5)
-	padding: 20px
+	box-shadow: .25em .25em .3em rgba(0,0,0,.5)
+	padding: 1.25em
 	overflow: auto
 .options-section
-	margin-bottom: 20px
+	margin-bottom: 1.25em
 .options-title
-	font-size: 18px
+	font-size: 1.25em
 	color: #222
-	line-height: 25px
+	line-height: 1.25em
 button
 	font-family: $monofont
 	background-color: #fff
 	background: linear-gradient(to bottom, #fff 50%, #eee 100%)
-	border: 2px solid #ddd
-	border-radius: 4px
-	padding: 2px 10px
-	margin: 5px
-	box-shadow: 2px 2px 5px rgba(0,0,0,.3)
+	border: .15em solid #ddd
+	border-radius: .3em
+	padding: .15em .75em
+	margin: .375em
+	box-shadow: .15em .15em .375em rgba(0,0,0,.3)
 	color: #333
 button:disabled
 	background: transparent
 	box-shadow: none
 	color: #666
 button:hover:not(:disabled)
-	box-shadow: 2px 2px 5px rgba(0,0,0,.5)
+	box-shadow: .15em .15em .375em rgba(0,0,0,.5)
 	color: #000
 button:active:not(:disabled)
 	box-shadow: none
 input
 	font-family: $monofont
 #newlayername
-	border: 3px solid #ddd
-	border-radius: 3px
-	padding: 4px
+	border: .225em solid #ddd
+	border-radius: .225em
+	padding: .3em
 #status-popup
 	position: absolute
 	top: 0
@@ -212,14 +206,14 @@ input
 	left: 0
 	bottom: 0
 	margin: auto
-	padding: 40px
-	width: 600px
-	height: 400px
+	padding: 2.5em
+	width: 37.5em
+	height: 25em
 	background-color: #fff
-	box-shadow: 4px 4px 80px rgba(0,0,0,.5)
-	border-radius: 5px
-	border-top: 5px solid #222
-	border-bottom: 5px solid #222
+	box-shadow: .225em .225em 5em rgba(0,0,0,.5)
+	border-radius: .5em
+	border-top: .35em solid #222
+	border-bottom: .35em solid #222
 	display: flex
 	flex-direction: column
 .status-top-flex
@@ -227,35 +221,35 @@ input
 .status-bottom-flex
 	flex: 8
 .status-title
-	font-size: 25px
-	margin-bottom: 20px
+	font-size: 1.6em
+	margin-bottom: .8em
 .status-info
-	line-height: 40px
+	line-height: 2.5em
 .status-cancel
 	float: right
 .loading-frame
 	background-color: #bbb
-	border: 5px solid #222
-	border-radius: 5px
-	width: 300px
-	height: 25px
-	margin: 20px auto
+	border: .35em solid #222
+	border-radius: .35em
+	width: 18em
+	height: 1.6em
+	margin: 1.25em auto
 .loading-bar
-	height: 25px
-	background: repeating-linear-gradient(-50deg, #333, #333 8px, transparent 8px, transparent 16px), linear-gradient(20deg, #000, #444)
+	height: .16em
+	background: repeating-linear-gradient(-50deg, #333, #333 .5em, transparent .5em, transparent 1em), linear-gradient(20deg, #000, #444)
 	transition: width .5s ease-in
 .loading-bar.status-idle
-	width: 0px
+	width: 0
 .loading-bar.status-make
-	width: 75px
+	width: 18em * 1 / 4
 .loading-bar.status-flash
-	width: 150px
+	width: 18em * 2 / 4
 .loading-bar.status-clean
-	width: 225px
+	width: 18em * 3 / 4
 .loading-bar.status-done
-	width: 300px
+	width: 18em
 .loading-bar.status-error
-	width: 300px
-	background: repeating-linear-gradient(-50deg, #f66, #f66 8px, transparent 8px, transparent 16px), linear-gradient(20deg, #f33, #f99)
+	width: 18em
+	background: repeating-linear-gradient(-50deg, #f66, #f66 .5em, transparent .5em, transparent 1em), linear-gradient(20deg, #f33, #f99)
 .hidden
 	display: none !important
