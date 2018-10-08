@@ -1,260 +1,260 @@
 $monofont: "Iosevka", Monospace;
 body
-	margin: 0
+    margin: 0
 #body
-	background-color: #fff
-	padding: 0
-	margin: 0
-	font-family: $monofont
-	display: flex
-	flex-direction: column
-	position: absolute
-	height: 100%
-	width: 100%
+    background-color: #fff
+    padding: 0
+    margin: 0
+    font-family: $monofont
+    display: flex
+    flex-direction: column
+    position: absolute
+    height: 100%
+    width: 100%
 #header
-	background-color: #222
-	border-bottom: .25em solid #bbb
-	padding: 1.25em
-	box-shadow: 0 .25em .3em rgba(0,0,0,.5)
+    background-color: #222
+    border-bottom: .25em solid #bbb
+    padding: 1.25em
+    box-shadow: 0 .25em .3em rgba(0,0,0,.5)
 #header-info
-	float: left
+    float: left
 #title
-	color: #fff
-	font-weight: 300
-	font-size: 2em
+    color: #fff
+    font-weight: 300
+    font-size: 2em
 #source
-	color: #bbb
-	transition: all ease-in-out .15s
-	&:hover
-		color: #fff
+    color: #bbb
+    transition: all ease-in-out .15s
+    &:hover
+        color: #fff
 a
-	color: unset
-	text-decoration: unset
+    color: unset
+    text-decoration: unset
 #header-controls
-	float: right
-	margin: 1em 0
+    float: right
+    margin: 1em 0
 .option-label
-	float: left
-	color: #bbb
-	line-height: 1.5em
-	margin-right: .6em
+    float: left
+    color: #bbb
+    line-height: 1.5em
+    margin-right: .6em
 #layer-select
-	width: 15em
-	background-color: #ccc
-	border: none
-	border-radius: .8em
+    width: 15em
+    background-color: #ccc
+    border: none
+    border-radius: .8em
 #keyboard-container
-	overflow: auto
-	display: flex
-	font-size: 1.3vw
+    overflow: auto
+    display: flex
+    font-size: 1.3vw
 @media (min-aspect-ratio: 2/1)
-	#keyboard-container
-		font-size: 1.3vh
+    #keyboard-container
+        font-size: 1.3vh
 #keyboard-spacer
-	flex: 1
+    flex: 1
 #keyboard
-	background-color: #333
-	background: repeating-linear-gradient(-50deg, #333, #333 .5em, transparent .5em, transparent 1em), linear-gradient(20deg, #000, #444)
-	padding: .6em
-	margin: 2.5em 2em
-	display: inline-block
-	border-radius: .5em
-	border: .25em solid #bbb
-	box-shadow: .25em .25em .3em rgba(0,0,0,.5)
+    background-color: #333
+    background: repeating-linear-gradient(-50deg, #333, #333 .5em, transparent .5em, transparent 1em), linear-gradient(20deg, #000, #444)
+    padding: .6em
+    margin: 2.5em 2em
+    display: inline-block
+    border-radius: .5em
+    border: .25em solid #bbb
+    box-shadow: .25em .25em .3em rgba(0,0,0,.5)
 .keyboard-row
-	padding: 0
-	white-space: nowrap
+    padding: 0
+    white-space: nowrap
 .keyboard-key
-	background-color: #d6d6d6
-	margin: .125em
-	padding: .32em
-	width: 3.2em
-	height: 3.2em
-	display: inline-block
-	box-shadow: .125em .125em .32em rgba(0,0,0,.5)
-	border-radius: .125em
-	white-space: normal
-	z-index: 0
-	position: relative
-	&.type-none
-	&.type-hid
-	&.type-mod
-		background-color: #c6c6c6
-	&.type-midi
-		background-color: #c6d6c6
-	&.type-func
-		background-color: #d6c6c6
-	&.type-toggle
-		background-color: #d6c6d6
-	&.type-target
-		background-color: #d6c6d6
-	&.type-click, &.type-mouse-x, &.type-mouse-y, &.type-scroll-x, &.type-scroll-y
-		background-color: #c6c6d6
-	&.type-hidmod
-		background-color: #d6d6c6
-	&.active
-		box-shadow: 0 0 1.3em #222
-		z-index: 10
+    background-color: #d6d6d6
+    margin: .125em
+    padding: .32em
+    width: 3.2em
+    height: 3.2em
+    display: inline-block
+    box-shadow: .125em .125em .32em rgba(0,0,0,.5)
+    border-radius: .125em
+    white-space: normal
+    z-index: 0
+    position: relative
+    &.type-none
+    &.type-hid
+    &.type-mod
+        background-color: #c6c6c6
+    &.type-midi
+        background-color: #c6d6c6
+    &.type-func
+        background-color: #d6c6c6
+    &.type-toggle
+        background-color: #d6c6d6
+    &.type-target
+        background-color: #d6c6d6
+    &.type-click, &.type-mouse-x, &.type-mouse-y, &.type-scroll-x, &.type-scroll-y
+        background-color: #c6c6d6
+    &.type-hidmod
+        background-color: #d6d6c6
+    &.active
+        box-shadow: 0 0 1.3em #222
+        z-index: 10
 $textPopupSideOffset: 6em;
 .keyboard-text
-	margin: 0
-	padding: 0
-	width: inherit
-	line-height: 3.2em
-	font-size: .5em
-	border: 1px solid #eee
-	box-sizing: border-box
-	border-bottom: none
-	font-family: $monofont
-	&:focus
-		width: calc(6.4em + #{$textPopupSideOffset} * 2)
-		z-index: 1000
-		margin-left: -$textPopupSideOffset
-		border-radius: .4em
-		box-shadow: 0 0 1.3em #000
+    margin: 0
+    padding: 0
+    width: inherit
+    line-height: 3.2em
+    font-size: .5em
+    border: 1px solid #eee
+    box-sizing: border-box
+    border-bottom: none
+    font-family: $monofont
+    &:focus
+        width: calc(6.4em + #{$textPopupSideOffset} * 2)
+        z-index: 1000
+        margin-left: -$textPopupSideOffset
+        border-radius: .4em
+        box-shadow: 0 0 1.3em #000
 .keyboard-type
-	background-color: #f8f8f8
-	background: linear-gradient(to bottom, #fff 0%, #eee 100%)
-	border: 1px solid #eee
-	border-top: none
-	width: inherit
-	color: #888
-	position: relative
-	.keyboard-text:focus + &
-		z-index: -2
-		position: relative
-	&.type-none
-		background-color: #f8f8f8
-		background: linear-gradient(to bottom, #fff 0%, #eee 100%)
-		color: #ddd
-	&.type-hid
-		//Default key style
-	&.type-mod
-		background-color: #e4e4e4
-		background: linear-gradient(to bottom, #fff 0%, #ccc 100%)
-		color: #444
-	&.type-midi
-		background-color: #f0f8f0
-		background: linear-gradient(to bottom, #fff 0%, #ded 100%)
-		color: #4b4
-	&.type-func
-		background-color: #f8f0f0
-		background: linear-gradient(to bottom, #fff 0%, #edd 100%)
-		color: #b44
-	&.type-toggle
-		background-color: #f8f0f8
-		background: linear-gradient(to bottom, #fff 0%, #ede 100%)
-		color: #b4b
-	&.type-target
-		background-color: #f8f0f8
-		background: linear-gradient(to bottom, #fff 0%, #ede 100%)
-		color: #b4b
-	&.type-click, &.type-mouse-x, &.type-mouse-y, &.type-scroll-x, &.type-scroll-y
-		background-color: #f0f0f8
-		background: linear-gradient(to bottom, #fff 0%, #dde 100%)
-		color: #44b
-	&.type-hidmod
-		background-color: #f8f8f0
-		background: linear-gradient(to bottom, #fff 0%, #eed 100%)
-		color: #bb4
+    background-color: #f8f8f8
+    background: linear-gradient(to bottom, #fff 0%, #eee 100%)
+    border: 1px solid #eee
+    border-top: none
+    width: inherit
+    color: #888
+    position: relative
+    .keyboard-text:focus + &
+        z-index: -2
+        position: relative
+    &.type-none
+        background-color: #f8f8f8
+        background: linear-gradient(to bottom, #fff 0%, #eee 100%)
+        color: #ddd
+    &.type-hid
+        //Default key style
+    &.type-mod
+        background-color: #e4e4e4
+        background: linear-gradient(to bottom, #fff 0%, #ccc 100%)
+        color: #444
+    &.type-midi
+        background-color: #f0f8f0
+        background: linear-gradient(to bottom, #fff 0%, #ded 100%)
+        color: #4b4
+    &.type-func
+        background-color: #f8f0f0
+        background: linear-gradient(to bottom, #fff 0%, #edd 100%)
+        color: #b44
+    &.type-toggle
+        background-color: #f8f0f8
+        background: linear-gradient(to bottom, #fff 0%, #ede 100%)
+        color: #b4b
+    &.type-target
+        background-color: #f8f0f8
+        background: linear-gradient(to bottom, #fff 0%, #ede 100%)
+        color: #b4b
+    &.type-click, &.type-mouse-x, &.type-mouse-y, &.type-scroll-x, &.type-scroll-y
+        background-color: #f0f0f8
+        background: linear-gradient(to bottom, #fff 0%, #dde 100%)
+        color: #44b
+    &.type-hidmod
+        background-color: #f8f8f0
+        background: linear-gradient(to bottom, #fff 0%, #eed 100%)
+        color: #bb4
 select
-	font-size: .5em
-	height: 3.2em
-	box-sizing: border-box
-	appearance: none
-	-moz-appearance: none
-	font-family: $monofont
-	margin: 0
-	padding: 0
+    font-size: .5em
+    height: 3.2em
+    box-sizing: border-box
+    appearance: none
+    -moz-appearance: none
+    font-family: $monofont
+    margin: 0
+    padding: 0
 #bottom-controls
-	border-top: .25em solid #bbb
-	background-color: #eee
-	flex: 1
-	box-shadow: .25em .25em .3em rgba(0,0,0,.5)
-	padding: 1.25em
-	overflow: auto
+    border-top: .25em solid #bbb
+    background-color: #eee
+    flex: 1
+    box-shadow: .25em .25em .3em rgba(0,0,0,.5)
+    padding: 1.25em
+    overflow: auto
 .options-section
-	margin-bottom: 1.25em
+    margin-bottom: 1.25em
 .options-title
-	font-size: 1.25em
-	color: #222
-	line-height: 1.25em
+    font-size: 1.25em
+    color: #222
+    line-height: 1.25em
 button
-	font-family: $monofont
-	background-color: #fff
-	background: linear-gradient(to bottom, #fff 50%, #eee 100%)
-	border: .15em solid #ddd
-	border-radius: .3em
-	padding: .15em .75em
-	margin: .375em
-	box-shadow: .15em .15em .375em rgba(0,0,0,.3)
-	color: #333
-	&:disabled
-		background: transparent
-		box-shadow: none
-		color: #666
-	&:hover:not(:disabled)
-		box-shadow: .15em .15em .375em rgba(0,0,0,.5)
-		color: #000
-	&:active:not(:disabled)
-		box-shadow: none
+    font-family: $monofont
+    background-color: #fff
+    background: linear-gradient(to bottom, #fff 50%, #eee 100%)
+    border: .15em solid #ddd
+    border-radius: .3em
+    padding: .15em .75em
+    margin: .375em
+    box-shadow: .15em .15em .375em rgba(0,0,0,.3)
+    color: #333
+    &:disabled
+        background: transparent
+        box-shadow: none
+        color: #666
+    &:hover:not(:disabled)
+        box-shadow: .15em .15em .375em rgba(0,0,0,.5)
+        color: #000
+    &:active:not(:disabled)
+        box-shadow: none
 input
-	font-family: $monofont
+    font-family: $monofont
 #newlayername
-	border: .225em solid #ddd
-	border-radius: .225em
-	padding: .3em
+    border: .225em solid #ddd
+    border-radius: .225em
+    padding: .3em
 #status-popup
-	position: absolute
-	top: 0
-	right: 0
-	left: 0
-	bottom: 0
-	margin: auto
-	padding: 2.5em
-	width: 37.5em
-	height: 25em
-	background-color: #fff
-	box-shadow: .225em .225em 5em rgba(0,0,0,.5)
-	border-radius: .5em
-	border-top: .35em solid #222
-	border-bottom: .35em solid #222
-	display: flex
-	flex-direction: column
+    position: absolute
+    top: 0
+    right: 0
+    left: 0
+    bottom: 0
+    margin: auto
+    padding: 2.5em
+    width: 37.5em
+    height: 25em
+    background-color: #fff
+    box-shadow: .225em .225em 5em rgba(0,0,0,.5)
+    border-radius: .5em
+    border-top: .35em solid #222
+    border-bottom: .35em solid #222
+    display: flex
+    flex-direction: column
 .status-top-flex
-	flex: 2
+    flex: 2
 .status-bottom-flex
-	flex: 8
+    flex: 8
 .status-title
-	font-size: 1.6em
-	margin-bottom: .8em
+    font-size: 1.6em
+    margin-bottom: .8em
 .status-info
-	line-height: 2.5em
+    line-height: 2.5em
 .status-cancel
-	float: right
+    float: right
 .loading-frame
-	background-color: #bbb
-	border: .35em solid #222
-	border-radius: .35em
-	width: 18em
-	height: 1.6em
-	margin: 1.25em auto
+    background-color: #bbb
+    border: .35em solid #222
+    border-radius: .35em
+    width: 18em
+    height: 1.6em
+    margin: 1.25em auto
 .loading-bar
-	height: .16em
-	background: repeating-linear-gradient(-50deg, #333, #333 .5em, transparent .5em, transparent 1em), linear-gradient(20deg, #000, #444)
-	transition: width .5s ease-in
-	&.status-idle
-		width: 0
-	&.status-make
-		width: 18em * 1 / 4
-	&.status-flash
-		width: 18em * 2 / 4
-	&.status-clean
-		width: 18em * 3 / 4
-	&.status-done
-		width: 18em
-	&.status-error
-		width: 18em
-		background: repeating-linear-gradient(-50deg, #f66, #f66 .5em, transparent .5em, transparent 1em), linear-gradient(20deg, #f33, #f99)
+    height: .16em
+    background: repeating-linear-gradient(-50deg, #333, #333 .5em, transparent .5em, transparent 1em), linear-gradient(20deg, #000, #444)
+    transition: width .5s ease-in
+    &.status-idle
+        width: 0
+    &.status-make
+        width: 18em * 1 / 4
+    &.status-flash
+        width: 18em * 2 / 4
+    &.status-clean
+        width: 18em * 3 / 4
+    &.status-done
+        width: 18em
+    &.status-error
+        width: 18em
+        background: repeating-linear-gradient(-50deg, #f66, #f66 .5em, transparent .5em, transparent 1em), linear-gradient(20deg, #f33, #f99)
 .hidden
-	display: none !important
+    display: none !important
