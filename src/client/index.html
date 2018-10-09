@@ -27,7 +27,7 @@
     </div>
     <div id="keyboard-container">
         <div id="keyboard-spacer"></div>
-        <div id="keyboard" v-bind:style="{ transform: 'scale(' + scale + ')' }">
+        <div id="keyboard">
             <div class="keyboard-row" v-for="y in height">
                 <keyboard-key :key="x + y * 14" v-for="x in width" :x="x-1" :y="y-1" :key_data="keys[y-1][x-1].data" :key_type="keys[y-1][x-1].type" :is_active="x-1 == focused_key.x && y-1 == focused_key.y" v-on:updatekey="processKeyUpdate" v-on:focuskey="updateKeyFocus"></keyboard-key>
             </div>
@@ -35,11 +35,6 @@
         <div id="keyboard-spacer"></div>
     </div>
     <div id="bottom-controls">
-        <div class="options-section">
-            <div class="options-title"> zoom </div>
-            <button v-on:click="scale=scale*.95">-</button>
-            <button v-on:click="scale=scale*1.05">+</button>
-        </div>
         <div class="options-section">
             <div class="options-title"> layers </div>
             <input id="newlayername" v-model="newlayername" placeholder="name for new layer"></input>

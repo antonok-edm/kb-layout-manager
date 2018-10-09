@@ -69,7 +69,6 @@ var keyboard = new Vue({
         layers: [],
         current_layer: -1,
         focused_key: { x:-1, y:-1 },
-        scale: 1,
         newlayername: '',
         server_connected: false,
         server_status: 'idle',
