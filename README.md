@@ -2,6 +2,8 @@
 This repository contains an HTML interface and server backend for layout management on antonok's keyboard.
 More information on the keyboard can be found in [this repository](https://gitlab.com/antonok/kb).
 
+You can view a live demo of the layout manager [here](https://kb.antonok.com).
+
 ![kb-layout-manager sample usage](https://gitlab.com/antonok/kb-layout-manager/raw/master/sample_usage.png)
 
 ## clientside
