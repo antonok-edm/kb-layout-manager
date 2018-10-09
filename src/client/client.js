@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 import Vue from 'vue/dist/vue.js';
 
 import './style.sass';
-import './favicon.ico';
+import './favicon/favicon.ico';
 
 import parseLayerMapsFile from './c_parser';
 import createExportFormat from './c_formatter';
