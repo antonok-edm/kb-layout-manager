@@ -64,6 +64,19 @@ a
 .keyboard-row
     padding: 0
     white-space: nowrap
+
+$modTypeHighlight: #666
+$midiTypeHighlight: #0f0
+$funcTypeHighlight: #f00
+$layerTypeHighlight: #f0f
+$mouseTypeHighlight: #00f
+$hidmodTypeHighlight: #ff0
+
+@function keyEdgeColor($highlight)
+    @return lighten(desaturate($highlight, 82%), 31%)
+@mixin keyEdgeBackground($highlight)
+    background: keyEdgeColor($highlight)
+
 .keyboard-key
     background-color: #d6d6d6
     margin: .125em
@@ -75,19 +88,17 @@ a
     &.type-none
     &.type-hid
     &.type-mod
-        background-color: #c6c6c6
+        @include keyEdgeBackground($modTypeHighlight)
     &.type-midi
-        background-color: #c6d6c6
+        @include keyEdgeBackground($midiTypeHighlight)
     &.type-func
-        background-color: #d6c6c6
-    &.type-toggle
-        background-color: #d6c6d6
-    &.type-target
-        background-color: #d6c6d6
+        @include keyEdgeBackground($funcTypeHighlight)
+    &.type-toggle, &.type-target
+        @include keyEdgeBackground($layerTypeHighlight)
     &.type-click, &.type-mouse-x, &.type-mouse-y, &.type-scroll-x, &.type-scroll-y
-        background-color: #c6c6d6
+        @include keyEdgeBackground($mouseTypeHighlight)
     &.type-hidmod
-        background-color: #d6d6c6
+        @include keyEdgeBackground($hidmodTypeHighlight)
     &.active
         box-shadow: 0 0 1.3em #222
         z-index: 10
@@ -117,6 +128,18 @@ $textPopupSideOffset: 6em;
         margin-left: -$textPopupSideOffset
         border-radius: .4em
         box-shadow: 0 0 1.3em #000
+
+@function keyFaceBackgroundColor($highlight)
+    @return lighten(desaturate($highlight, 60%), 45.75%)
+@function keyFaceBackground($highlight)
+    @return linear-gradient(to bottom, #fff 0%, keyFaceBackgroundColor($highlight) 100%)
+@function keyTypeTextColor($highlight)
+    @return darken(desaturate($highlight, 50.75%), 0.75%)
+@mixin keyTypeStyle($highlight)
+    background-color: keyFaceBackgroundColor($highlight)
+    background: keyFaceBackground($highlight)
+    color: keyTypeTextColor($highlight)
+
 .keyboard-type
     background-color: #f8f8f8
     background: linear-gradient(to bottom, #fff 0%, #eee 100%)
@@ -129,39 +152,21 @@ $textPopupSideOffset: 6em;
         z-index: -2
         position: relative
     &.type-none
-        background-color: #f8f8f8
-        background: linear-gradient(to bottom, #fff 0%, #eee 100%)
         color: #ddd
     &.type-hid
         //Default key style
     &.type-mod
-        background-color: #e4e4e4
-        background: linear-gradient(to bottom, #fff 0%, #ccc 100%)
-        color: #444
+        @include keyTypeStyle($modTypeHighlight)
     &.type-midi
-        background-color: #f0f8f0
-        background: linear-gradient(to bottom, #fff 0%, #ded 100%)
-        color: #4b4
+        @include keyTypeStyle($midiTypeHighlight)
     &.type-func
-        background-color: #f8f0f0
-        background: linear-gradient(to bottom, #fff 0%, #edd 100%)
-        color: #b44
-    &.type-toggle
-        background-color: #f8f0f8
-        background: linear-gradient(to bottom, #fff 0%, #ede 100%)
-        color: #b4b
-    &.type-target
-        background-color: #f8f0f8
-        background: linear-gradient(to bottom, #fff 0%, #ede 100%)
-        color: #b4b
+        @include keyTypeStyle($funcTypeHighlight)
+    &.type-toggle, &.type-target
+        @include keyTypeStyle($layerTypeHighlight)
     &.type-click, &.type-mouse-x, &.type-mouse-y, &.type-scroll-x, &.type-scroll-y
-        background-color: #f0f0f8
-        background: linear-gradient(to bottom, #fff 0%, #dde 100%)
-        color: #44b
+        @include keyTypeStyle($mouseTypeHighlight)
     &.type-hidmod
-        background-color: #f8f8f0
-        background: linear-gradient(to bottom, #fff 0%, #eed 100%)
-        color: #bb4
+        @include keyTypeStyle($hidmodTypeHighlight)
 select
     font-size: .5em
     height: 3.2em
