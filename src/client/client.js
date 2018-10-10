@@ -1,14 +1,14 @@
 import io from 'socket.io-client';
 import Vue from 'vue/dist/vue.js';
 
-import './style.sass';
+import './styles/style.sass';
 import './favicon/favicon.ico';
 
-import parseLayerMapsFile from './c_parser';
-import createExportFormat from './c_formatter';
+import parseLayerMapsFile from './utils/c_parser';
+import createExportFormat from './utils/c_formatter';
 
-import keyboard_key from './keyboard_key.vue';
-import status_popup from './status_popup.vue';
+import keyboard_key from './components/keyboard_key.vue';
+import status_popup from './components/status_popup.vue';
 
 /*
  *      Global constants

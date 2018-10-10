@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import validateByType from './type_validation';
+import validateByType from '../utils/type_validation';
 
 // Every type that can be assigned to a key
 const key_types = ['NONE', 'HID', 'MOD', 'MIDI', 'FUNC', 'TOGGLE', 'TARGET', 'CLICK',
