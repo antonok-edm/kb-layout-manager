@@ -19,7 +19,7 @@ module.exports = {
             },
             {
                 test: /\.s?(c|a)?ss$/,
-                loaders: ['style-loader', 'css-loader', 'sass-loader'],
+                loaders: ['vue-style-loader', 'style-loader', 'css-loader', {loader: 'sass-loader', options: {indentedSyntax: true}}],
             },
             {
                 test: /\.html$/,

@@ -1,4 +1,5 @@
-$monofont: "Iosevka", Monospace;
+@import 'variables'
+
 body
     margin: 0
 #body
@@ -39,12 +40,19 @@ a
     line-height: 1.8em
     margin-right: 0.8em
 #layer-select
+    box-sizing: border-box
+    appearance: none
+    -moz-appearance: none
+    font-family: $monofont
+    margin: 0
+    padding: 0
     width: 15em
     background-color: #ccc
     border: none
     border-radius: .8em
     font-size: 0.75em
     height: 2.4em
+
 #keyboard-container
     overflow: auto
     display: flex
@@ -67,117 +75,6 @@ a
     padding: 0
     white-space: nowrap
 
-$modTypeHighlight: #666
-$midiTypeHighlight: #0f0
-$funcTypeHighlight: #f00
-$layerTypeHighlight: #f0f
-$mouseTypeHighlight: #00f
-$hidmodTypeHighlight: #ff0
-
-@function keyEdgeColor($highlight)
-    @return lighten(desaturate($highlight, 82%), 31%)
-@mixin keyEdgeBackground($highlight)
-    background: keyEdgeColor($highlight)
-
-.keyboard-key
-    background-color: #d6d6d6
-    margin: .125em
-    padding: .32em
-    display: inline-block
-    box-shadow: .125em .125em .32em rgba(0,0,0,.5)
-    border-radius: .125em
-    position: relative
-    &.type-none
-    &.type-hid
-    &.type-mod
-        @include keyEdgeBackground($modTypeHighlight)
-    &.type-midi
-        @include keyEdgeBackground($midiTypeHighlight)
-    &.type-func
-        @include keyEdgeBackground($funcTypeHighlight)
-    &.type-toggle, &.type-target
-        @include keyEdgeBackground($layerTypeHighlight)
-    &.type-click, &.type-mouse-x, &.type-mouse-y, &.type-scroll-x, &.type-scroll-y
-        @include keyEdgeBackground($mouseTypeHighlight)
-    &.type-hidmod
-        @include keyEdgeBackground($hidmodTypeHighlight)
-    &.active
-        box-shadow: 0 0 1.3em #222
-        z-index: 10
-.key-face
-    background-color: #fff
-    margin: 0
-    padding: 0
-    white-space: normal
-    z-index: 0
-    position: relative
-    width: 3.2em
-    height: 3.2em
-$textPopupSideOffset: 6em;
-.keyboard-text
-    margin: 0
-    padding: 0
-    width: inherit
-    line-height: 3.2em
-    font-size: .5em
-    border: 1px solid #eee
-    box-sizing: border-box
-    border-bottom: none
-    font-family: $monofont
-    &:focus
-        width: calc(6.4em + #{$textPopupSideOffset} * 2)
-        z-index: 1000
-        margin-left: -$textPopupSideOffset
-        border-radius: .4em
-        box-shadow: 0 0 1.3em #000
-
-@function keyFaceBackgroundColor($highlight)
-    @return lighten(desaturate($highlight, 60%), 45.75%)
-@function keyFaceBackground($highlight)
-    @return linear-gradient(to bottom, #fff 0%, keyFaceBackgroundColor($highlight) 100%)
-@function keyTypeTextColor($highlight)
-    @return darken(desaturate($highlight, 50.75%), 0.75%)
-@mixin keyTypeStyle($highlight)
-    background-color: keyFaceBackgroundColor($highlight)
-    background: keyFaceBackground($highlight)
-    color: keyTypeTextColor($highlight)
-
-.keyboard-type
-    background-color: #f8f8f8
-    background: linear-gradient(to bottom, #fff 0%, #eee 100%)
-    border: 1px solid #eee
-    border-top: none
-    width: inherit
-    color: #888
-    position: relative
-    .keyboard-text:focus + &
-        z-index: -2
-        position: relative
-    &.type-none
-        color: #ddd
-    &.type-hid
-        //Default key style
-    &.type-mod
-        @include keyTypeStyle($modTypeHighlight)
-    &.type-midi
-        @include keyTypeStyle($midiTypeHighlight)
-    &.type-func
-        @include keyTypeStyle($funcTypeHighlight)
-    &.type-toggle, &.type-target
-        @include keyTypeStyle($layerTypeHighlight)
-    &.type-click, &.type-mouse-x, &.type-mouse-y, &.type-scroll-x, &.type-scroll-y
-        @include keyTypeStyle($mouseTypeHighlight)
-    &.type-hidmod
-        @include keyTypeStyle($hidmodTypeHighlight)
-select
-    font-size: .5em
-    height: 3.2em
-    box-sizing: border-box
-    appearance: none
-    -moz-appearance: none
-    font-family: $monofont
-    margin: 0
-    padding: 0
 #bottom-controls
     border-top: .25em solid #bbb
     background-color: #eee
@@ -216,57 +113,3 @@ input
     border: .225em solid #ddd
     border-radius: .225em
     padding: .3em
-#status-popup
-    position: absolute
-    top: 0
-    right: 0
-    left: 0
-    bottom: 0
-    margin: auto
-    padding: 2.5em
-    width: 37.5em
-    height: 25em
-    background-color: #fff
-    box-shadow: .225em .225em 5em rgba(0,0,0,.5)
-    border-radius: .5em
-    border-top: .35em solid #222
-    border-bottom: .35em solid #222
-    display: flex
-    flex-direction: column
-.status-top-flex
-    flex: 2
-.status-bottom-flex
-    flex: 8
-.status-title
-    font-size: 1.6em
-    margin-bottom: .8em
-.status-info
-    line-height: 2.5em
-.status-cancel
-    float: right
-.loading-frame
-    background-color: #bbb
-    border: .35em solid #222
-    border-radius: .35em
-    width: 18em
-    height: 1.6em
-    margin: 1.25em auto
-.loading-bar
-    height: 1.6em
-    background: repeating-linear-gradient(-50deg, #333, #333 .5em, transparent .5em, transparent 1em), linear-gradient(20deg, #000, #444)
-    transition: width .5s ease-in
-    &.status-idle
-        width: 0
-    &.status-make
-        width: 18em * 1 / 4
-    &.status-flash
-        width: 18em * 2 / 4
-    &.status-clean
-        width: 18em * 3 / 4
-    &.status-done
-        width: 18em
-    &.status-error
-        width: 18em
-        background: repeating-linear-gradient(-50deg, #f66, #f66 .5em, transparent .5em, transparent 1em), linear-gradient(20deg, #f33, #f99)
-.hidden
-    display: none !important

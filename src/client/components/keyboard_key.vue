@@ -19,6 +19,121 @@
     </div>
 </template>
 
+<style lang="sass">
+@import '../styles/variables.sass'
+
+$modTypeHighlight: #666
+$midiTypeHighlight: #0f0
+$funcTypeHighlight: #f00
+$layerTypeHighlight: #f0f
+$mouseTypeHighlight: #00f
+$hidmodTypeHighlight: #ff0
+
+@function keyEdgeColor($highlight)
+    @return lighten(desaturate($highlight, 82%), 31%)
+@mixin keyEdgeBackground($highlight)
+    background: keyEdgeColor($highlight)
+
+.keyboard-key
+    background-color: #d6d6d6
+    margin: .125em
+    padding: .32em
+    display: inline-block
+    box-shadow: .125em .125em .32em rgba(0,0,0,.5)
+    border-radius: .125em
+    position: relative
+    &.type-none
+    &.type-hid
+    &.type-mod
+        @include keyEdgeBackground($modTypeHighlight)
+    &.type-midi
+        @include keyEdgeBackground($midiTypeHighlight)
+    &.type-func
+        @include keyEdgeBackground($funcTypeHighlight)
+    &.type-toggle, &.type-target
+        @include keyEdgeBackground($layerTypeHighlight)
+    &.type-click, &.type-mouse-x, &.type-mouse-y, &.type-scroll-x, &.type-scroll-y
+        @include keyEdgeBackground($mouseTypeHighlight)
+    &.type-hidmod
+        @include keyEdgeBackground($hidmodTypeHighlight)
+    &.active
+        box-shadow: 0 0 1.3em #222
+        z-index: 10
+.key-face
+    background-color: #fff
+    margin: 0
+    padding: 0
+    white-space: normal
+    z-index: 0
+    position: relative
+    width: 3.2em
+    height: 3.2em
+$textPopupSideOffset: 6em;
+.keyboard-text
+    margin: 0
+    padding: 0
+    width: inherit
+    line-height: 3.2em
+    font-size: .5em
+    border: 1px solid #eee
+    box-sizing: border-box
+    border-bottom: none
+    font-family: $monofont
+    &:focus
+        width: calc(6.4em + #{$textPopupSideOffset} * 2)
+        z-index: 1000
+        margin-left: -$textPopupSideOffset
+        border-radius: .4em
+        box-shadow: 0 0 1.3em #000
+
+@function keyFaceBackgroundColor($highlight)
+    @return lighten(desaturate($highlight, 60%), 45.75%)
+@function keyFaceBackground($highlight)
+    @return linear-gradient(to bottom, #fff 0%, keyFaceBackgroundColor($highlight) 100%)
+@function keyTypeTextColor($highlight)
+    @return darken(desaturate($highlight, 50.75%), 0.75%)
+@mixin keyTypeStyle($highlight)
+    background-color: keyFaceBackgroundColor($highlight)
+    background: keyFaceBackground($highlight)
+    color: keyTypeTextColor($highlight)
+
+.keyboard-type
+    font-size: .5em
+    height: 3.2em
+    box-sizing: border-box
+    appearance: none
+    -moz-appearance: none
+    font-family: $monofont
+    margin: 0
+    padding: 0
+    background-color: #f8f8f8
+    background: linear-gradient(to bottom, #fff 0%, #eee 100%)
+    border: 1px solid #eee
+    border-top: none
+    width: inherit
+    color: #888
+    position: relative
+    .keyboard-text:focus + &
+        z-index: -2
+        position: relative
+    &.type-none
+        color: #ddd
+    &.type-hid
+        //Default key style
+    &.type-mod
+        @include keyTypeStyle($modTypeHighlight)
+    &.type-midi
+        @include keyTypeStyle($midiTypeHighlight)
+    &.type-func
+        @include keyTypeStyle($funcTypeHighlight)
+    &.type-toggle, &.type-target
+        @include keyTypeStyle($layerTypeHighlight)
+    &.type-click, &.type-mouse-x, &.type-mouse-y, &.type-scroll-x, &.type-scroll-y
+        @include keyTypeStyle($mouseTypeHighlight)
+    &.type-hidmod
+        @include keyTypeStyle($hidmodTypeHighlight)
+</style>
+
 <script>
 import validateByType from '../utils/type_validation';
 
