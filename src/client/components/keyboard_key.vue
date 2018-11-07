@@ -58,7 +58,7 @@ $hidmodTypeHighlight: #ff0
         @include keyEdgeBackground($hidmodTypeHighlight)
     &.active
         box-shadow: 0 0 1.3em #222
-        z-index: 10
+        z-index: 5
 .key-face
     background-color: #fff
     margin: 0
@@ -81,7 +81,7 @@ $textPopupSideOffset: 6em;
     font-family: $monofont
     &:focus
         width: calc(6.4em + #{$textPopupSideOffset} * 2)
-        z-index: 1000
+        z-index: 6
         margin-left: -$textPopupSideOffset
         border-radius: .4em
         box-shadow: 0 0 1.3em #000

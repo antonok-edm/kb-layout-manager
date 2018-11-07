@@ -42,6 +42,7 @@
     border-bottom: .35em solid #222
     display: flex
     flex-direction: column
+    z-index: 10;
 .status-top-flex
     flex: 2
 .status-bottom-flex
