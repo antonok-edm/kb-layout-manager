@@ -1,8 +1,9 @@
+import parseLayerMapsFile from '../src/client/utils/c_parser';
 import createExportFormat from '../src/client/utils/c_formatter';
 import { expect } from "chai";
 
-describe("formatting", function() {
-    it("formats a real QWERTY keymap", function() {
+describe("lossless transformation", function() {
+    it("can format and re-parse a real QWERTY keymap without losing information", function() {
     let keymap = [
         {
             "map": [
@@ -301,22 +302,10 @@ describe("formatting", function() {
         },
     ]
 
-        let expected = `// created by antonok's kb layout manager on ${new Date().toDateString()}
-//     www.gitlab.com/antonok/kb
-//     www.gitlab.com/antonok/kb-layout-manager
-
-KEYMAP(QWERTY) {
-{HID(_ESCAPE),HID(_1_EXCLAMATION),HID(_2_AT),HID(_3_HASHMARK),HID(_4_DOLLAR),HID(_5_PERCENTAGE),HID(_6_CARET),HID(_7_AMPERSAND),HID(_8_ASTERISK),HID(_9_OPENING_PARENTHESIS),HID(_0_CLOSING_PARENTHESIS),HID(_MINUS_AND_UNDERSCORE),HID(_EQUAL_AND_PLUS),HID(_BACKSPACE)},
-{HID(_TAB),HID(_Q),HID(_W),HID(_E),HID(_R),HID(_T),HID(_Y),HID(_U),HID(_I),HID(_O),HID(_P),HID(_OPENING_BRACKET_AND_BRACE),HID(_CLOSING_BRACKET_AND_BRACE),HID(_BACKSLASH_AND_PIPE)},
-{HID(_BACKSPACE),HID(_A),HID(_S),HID(_D),HID(_F),HID(_G),HID(_H),HID(_J),HID(_K),HID(_L),HID(_SEMICOLON_AND_COLON),HID(_APOSTROPHE_AND_QUOTE),HID(_ENTER),HID(_DELETE)},
-{MOD(_MOD_LEFTSHIFT),HID(_Z),HID(_X),HID(_C),HID(_V),HID(_B),HID(_N),HID(_M),HID(_COMMA_AND_LESS_THAN_SIGN),HID(_DOT_AND_GREATER_THAN_SIGN),HID(_SLASH_AND_QUESTION_MARK),MOD(_MOD_RIGHTSHIFT),HID(_UP_ARROW),HID(_ESCAPE)},
-{MOD(_MOD_LEFTCTRL),MOD(_MOD_LEFTGUI),MOD(_MOD_LEFTALT),TOGGLE(FN),HID(_SPACE),NONE,TOGGLE(LRDN),HID(_SPACE),NONE,TOGGLE(LRUP),TOGGLE(MOUSE),HID(_LEFT_ARROW),HID(_DOWN_ARROW),HID(_RIGHT_ARROW)}};
-`;
-
-    expect(createExportFormat(keymap)).equal(expected)
+    expect(parseLayerMapsFile(createExportFormat(keymap))).deep.equal(keymap)
     });
 
-    it("formats a small example with two keymaps", function() {
+    it("can format and re-parse a small example with two keymaps without losing information", function() {
     let keymap = [
         {
             "map": [
@@ -438,21 +427,6 @@ KEYMAP(QWERTY) {
         },
     ]
 
-        let expected = `// created by antonok's kb layout manager on ${new Date().toDateString()}
-//     www.gitlab.com/antonok/kb
-//     www.gitlab.com/antonok/kb-layout-manager
-
-KEYMAP(TEST_1) {
-{HID(_F1),HID(_F2),HID(_F3),HID(_F4)},
-{TARGET(TEST_2),FUNC(some_function),HIDMOD(_A,_MOD_LEFTSHIFT),MIDI(84)},
-{MOD(_MOD_LEFTCTRL),MOD(_MOD_LEFTSHIFT),MOD(_MOD_RIGHTALT),MOD(_MOD_RIGHTGUI)}};
-
-KEYMAP(TEST_2) {
-{NONE,NONE,NONE,TOGGLE(TEST_1)},
-{MOUSE_X(-1),MOUSE_Y(1),SCROLL_X(3),SCROLL_Y(-3)},
-{CLICK(2),CLICK(0),NONE,NONE}};
-`;
-
-    expect(createExportFormat(keymap)).equal(expected)
+    expect(parseLayerMapsFile(createExportFormat(keymap))).deep.equal(keymap)
     });
 });
