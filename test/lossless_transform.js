@@ -253,7 +253,7 @@ describe("lossless transformation", function() {
                         "type": "MOD",
                     },
                     {
-                        "data": "FN",
+                        "data": "2",
                         "type": "TOGGLE",
                     },
                     {
@@ -265,7 +265,7 @@ describe("lossless transformation", function() {
                         "type": "NONE",
                     },
                     {
-                        "data": "LRDN",
+                        "data": "4",
                         "type": "TOGGLE",
                     },
                     {
@@ -277,11 +277,11 @@ describe("lossless transformation", function() {
                         "type": "NONE",
                     },
                     {
-                        "data": "LRUP",
+                        "data": "3",
                         "type": "TOGGLE",
                     },
                     {
-                        "data": "MOUSE",
+                        "data": "6",
                         "type": "TOGGLE",
                     },
                     {
@@ -329,7 +329,7 @@ describe("lossless transformation", function() {
                 ],
                 [
                     {
-                        "data": "TEST_2",
+                        "data": "1",
                         "type": "TARGET",
                     },
                     {
@@ -364,7 +364,7 @@ describe("lossless transformation", function() {
                     },
                 ],
             ],
-          "name": "TEST_1",
+          "name": "TEST_0",
         },
         {
             "map": [
@@ -382,7 +382,7 @@ describe("lossless transformation", function() {
                         "type": "NONE",
                     },
                     {
-                        "data": "TEST_1",
+                        "data": "0",
                         "type": "TOGGLE",
                     },
                 ],
@@ -423,7 +423,7 @@ describe("lossless transformation", function() {
                     },
                 ],
             ],
-          "name": "TEST_2",
+          "name": "TEST_1",
         },
     ]
 

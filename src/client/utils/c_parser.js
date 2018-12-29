@@ -1,17 +1,21 @@
 // Returns a parsed object interpretation of the text from a layermaps.c file
-function parseLayerMapsFile(text) {
+function parseLayerMapsFile(c_source) {
     let maps = [];
-    let consts = text.split('\nKEYMAP').filter(text => {
+    let text = c_source.split('BEGIN_KEYMAPS')[1].split('END_KEYMAPS')[0];
+    let consts = text.split('\n{//').filter(text => {
         let unspaced = text.replace(/[\s\n]/g,'');
-        return unspaced.length > 6 && unspaced.slice(0, 1) == '('
-            && unspaced.slice(-3) == '}};';
+        return unspaced.length > 6 && unspaced.slice(0, 1) == '{'
+            && unspaced.slice(-3) == ',},';
     });
     for(var constblock in consts) {
         let block = consts[constblock];
-        let layername = block.replace(/[\s\n]/g,'').split(')')[0].slice(1);
-        let rows = block.slice(block.indexOf('{')+1, block.lastIndexOf('}'))
+        let meta = JSON.parse(block.split('\n')[0].trim());
+        block = block.slice(block.indexOf('\n')).trim();
+        let layername = 'name' in meta ? meta.name : 'unnamed';
+        let rows = block.slice(0, block.lastIndexOf('}'))
             .replace(/\s/g,'')
-            .split('},');
+            .split('},')
+            .slice(0, -1);
         let layermap = [];
         for(var rowtext in rows) {
             let keystrings = rows[rowtext].replace(/{/g, '')

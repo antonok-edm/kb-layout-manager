@@ -6,14 +6,18 @@ const export_header_format =
 
 // File export functions
 function createExportFormat(file_data) {
-    let contents = createExportHeader();
+    let contents = createExportHeader() + '\nBEGIN_KEYMAPS\n';
     return file_data.reduce((accum, current) =>
-        accum + '\n' + createExportForLayer(current), contents);
+        accum + '\n' + createExportForLayer(current), contents)
+        + '\nEND_KEYMAPS\n';
 }
 function createExportForLayer(layer_data) {
-    let output = 'KEYMAP(' + layer_data.name + ') {';
+    let metadata = {
+        name: layer_data.name
+    };
+    let output = '{//' + JSON.stringify(metadata);
     return layer_data.map.reduce((accum, current) =>
-        accum + '\n' + createExportForRow(current), output).slice(0,-1) + '};\n';
+        accum + '\n' + createExportForRow(current), output) + '\n},\n';
 }
 function createExportForRow(row_data) {
     return row_data.reduce((accum, current) =>
