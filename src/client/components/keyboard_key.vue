@@ -2,12 +2,21 @@
     <div class="keyboard-key" v-on:click="focusKey" v-bind:class="class_by_type">
         <div class="key-face">
             <input ref="input"
-                    class="keyboard-text"
+                    class="key-upper"
                     v-bind:value="key_data"
                     v-on:input="updateKey(key_type, $event.target.value)">
             </input>
             <select ref="select"
-                    class="keyboard-type"
+                    class="key-upper"
+                    v-bind:class="class_by_type"
+                    v-bind:value="key_data"
+                    v-on:change="updateKey(key_type, $event.target.value)">
+                <option v-for="(layer, index) in layers" v-bind:value="index" v-bind:selected="key_data == index">
+                    {{ layer }}
+                </option>
+            </select>
+            <select ref="select"
+                    class="key-lower"
                     v-bind:class="class_by_type"
                     v-bind:value="key_type"
                     v-on:input="updateKey($event.target.value, key_data)">
@@ -69,15 +78,14 @@ $hidmodTypeHighlight: #ff0
     width: 3.2em
     height: 3.2em
 $textPopupSideOffset: 6em;
-.keyboard-text
+.keyboard-key input
     margin: 0
     padding: 0
     width: inherit
-    line-height: 3.2em
+    height: 3.2em
     font-size: .5em
     border: 1px solid #eee
     box-sizing: border-box
-    border-bottom: none
     font-family: $monofont
     &:focus
         width: calc(6.4em + #{$textPopupSideOffset} * 2)
@@ -85,6 +93,15 @@ $textPopupSideOffset: 6em;
         margin-left: -$textPopupSideOffset
         border-radius: .4em
         box-shadow: 0 0 1.3em #000
+.key-upper
+    border-bottom: none !important
+    background: #fff
+.type-toggle, .type-target
+    input.key-upper
+        display: none
+.type-none, .type-hid, .type-mod, .type-midi, .type-func, .type-click, .type-mouse-x, .type-mouse-y, .type-scroll-x, .type-scroll-y, .type-hidmod
+    select.key-upper
+        display: none
 
 @function keyFaceBackgroundColor($highlight)
     @return lighten(desaturate($highlight, 60%), 45.75%)
@@ -97,8 +114,9 @@ $textPopupSideOffset: 6em;
     background: keyFaceBackground($highlight)
     color: keyTypeTextColor($highlight)
 
-.keyboard-type
+.keyboard-key select
     font-size: .5em
+    width: inherit
     height: 3.2em
     box-sizing: border-box
     appearance: none
@@ -106,16 +124,16 @@ $textPopupSideOffset: 6em;
     font-family: $monofont
     margin: 0
     padding: 0
-    background-color: #f8f8f8
-    background: linear-gradient(to bottom, #fff 0%, #eee 100%)
     border: 1px solid #eee
-    border-top: none
-    width: inherit
-    color: #888
     position: relative
-    .keyboard-text:focus + &
+    .keyboard-upper:focus + &
         z-index: -2
         position: relative
+.key-lower
+    background-color: #f8f8f8
+    background: linear-gradient(to bottom, #fff 0%, #eee 100%)
+    border-top: none !important
+    color: #888
     &.type-none
         color: #ddd
     &.type-hid
@@ -143,7 +161,7 @@ const key_types = ['NONE', 'HID', 'MOD', 'MIDI', 'FUNC', 'TOGGLE', 'TARGET', 'CL
 
 // Vue template for key elements on the keyboard visual
 const keyboard_key = {
-    props: ['x', 'y', 'key_type', 'key_data', 'is_active'],
+    props: ['x', 'y', 'key_type', 'key_data', 'is_active', 'layers'],
     data: function() {
         return { valid_types: key_types };
     },

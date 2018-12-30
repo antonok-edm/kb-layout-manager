@@ -28,12 +28,10 @@ const validators = {
             spacesToUnderscores(data));
     },
     'TOGGLE': (data) => {
-        return stripIllegalChars(
-            spacesToUnderscores(data));
+        return validateIndex(data);
     },
     'TARGET': (data) => {
-        return stripIllegalChars(
-            spacesToUnderscores(data));
+        return validateIndex(data);
     },
     'CLICK': (data) => {
         if(data.toUpperCase() == 'LEFT') return 0;
@@ -76,6 +74,15 @@ function spacesToUnderscores(data) {
 }
 function stripIllegalChars(data) {
     return data.replace(/[.,?!*+@#$%^&()[\]{}='"\\/\s]/g, '');
+}
+
+function validateIndex(value) {
+    if(/^\d+$/.test(value)) {
+        return value;
+    }
+    else {
+        return 0;
+    }
 }
 
 export default validateByType;
