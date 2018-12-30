@@ -27,8 +27,7 @@ socket.on('disconnect', () => keyboard.server_connected = false);
 // Parse a layermap file from the server backend and
 // set it as the current layout
 socket.on('layermaps.c', layermaps_file_text => {
-    keyboard.layout_data = parseLayerMapsFile(layermaps_file_text);
-    keyboard.current_layer = 0;
+    keyboard.loadNewLayerMaps(layermaps_file_text);
 });
 
 // Notify the user of the progress of backend operations
@@ -91,6 +90,10 @@ var keyboard = new Vue({
         },
     },
     methods: {
+        loadNewLayerMaps: function(layermaps_file_text) {
+            this.layout_data = parseLayerMapsFile(layermaps_file_text);
+            this.current_layer = 0;
+        },
         exportMaps: function() {
             let file_content = createExportFormat(this.layout_data);
             saveFile('layermaps.c', file_content);
@@ -187,3 +190,15 @@ function sendToServer(file_content) {
     };
     socket.emit('layermaps.c', data);
 }
+
+// Register an event listener for the file import button
+const file_importer = new FileReader();
+file_importer.onloadend = function() {
+    keyboard.loadNewLayerMaps(this.result);
+};
+document.getElementById('import-layermaps-file').addEventListener('change', function() {
+    let file = this.files[0];
+    if(file) {
+        file_importer.readAsText(file);
+    }
+});

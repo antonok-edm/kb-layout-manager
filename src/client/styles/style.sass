@@ -88,16 +88,18 @@ a
     font-size: 1.25em
     color: #222
     line-height: 1.75em
-button
+button, .hidden-file-input + label
+    font-size: 0.8em
     font-family: $monofont
     background-color: #fff
     background: linear-gradient(to bottom, #fff 50%, #eee 100%)
     border: .15em solid #ddd
     border-radius: .3em
-    padding: .15em .75em
+    padding: .25em .9em
     margin: .375em
     box-shadow: .15em .15em .375em rgba(0,0,0,.3)
     color: #333
+    cursor: pointer
     &:disabled
         background: transparent
         box-shadow: none
@@ -109,7 +111,14 @@ button
         box-shadow: none
 input
     font-family: $monofont
-#newlayername
-    border: .225em solid #ddd
-    border-radius: .225em
-    padding: .3em
+    &[type=text]
+        border: .225em solid #ddd
+        border-radius: .225em
+        padding: .3em
+    &[type=file]
+        width: 0.1px
+        height: 0.1px
+        opacity: 0
+        overflow: hidden
+        position: absolute
+        z-index: -1
