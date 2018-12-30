@@ -27,8 +27,7 @@ socket.on('disconnect', () => keyboard.server_connected = false);
 // Parse a layermap file from the server backend and
 // set it as the current layout
 socket.on('layermaps.c', layermaps_file_text => {
-    keyboard.file_data = parseLayerMapsFile(layermaps_file_text);
-    keyboard.new_data = keyboard.file_data;
+    keyboard.layout_data = parseLayerMapsFile(layermaps_file_text);
     keyboard.current_layer = 0;
 });
 
@@ -61,8 +60,7 @@ for(var y = 0; y < HEIGHT; y++) {
 var keyboard = new Vue({
     el: '#body',
     data: {
-        file_data: [{name: '', map: [[]]}],
-        new_data: [{name: '', map: [[]]}],
+        layout_data: [{name: '', map: [[]]}],
         width: WIDTH,
         height: HEIGHT,
         current_layer: -1,
@@ -84,49 +82,49 @@ var keyboard = new Vue({
     computed: {
         keys: function() {
             if(this.current_layer >= 0)
-                return this.new_data[this.current_layer].map;
+                return this.layout_data[this.current_layer].map;
             else
                 return keys;
         },
         layers: function() {
-            return getLayernamesFromFileData(this.new_data);
+            return getLayernamesFromFileData(this.layout_data);
         },
     },
     methods: {
         exportMaps: function() {
-            let file_content = createExportFormat(this.new_data);
+            let file_content = createExportFormat(this.layout_data);
             saveFile('layermaps.c', file_content);
         },
         exportMapsServer: function() {
-            let file_content = createExportFormat(this.new_data);
+            let file_content = createExportFormat(this.layout_data);
             sendToServer(file_content);
         },
         processKeyUpdate: function(x, y, type, data) {
-            this.new_data[this.current_layer].map[y][x] = {data: data, type: type};
+            this.layout_data[this.current_layer].map[y][x] = {data: data, type: type};
         },
         updateKeyFocus: function(x, y) {
             this.focused_key = {x, y};
         },
         renameLayer: function() {
-            this.new_data[this.current_layer].name = this.newlayername;
+            this.layout_data[this.current_layer].name = this.newlayername;
             this.newlayername = '';
         },
         addLayer: function() {
-            this.new_data.push({name: this.newlayername,
+            this.layout_data.push({name: this.newlayername,
                 map: keys});
             this.current_layer = this.layers.length-1;
             this.newlayername = '';
         },
         removeLayer: function() {
-            this.new_data.splice(this.current_layer, 1);
-            if(this.current_layer == this.new_data.length) {
+            this.layout_data.splice(this.current_layer, 1);
+            if(this.current_layer == this.layout_data.length) {
                 this.current_layer -= 1;
             }
         },
         required_functions: function() {
             let req_funcs = [];
-            for(var layer in this.new_data) {
-                let l = this.new_data[layer];
+            for(var layer in this.layout_data) {
+                let l = this.layout_data[layer];
                 for(var row in l.map) {
                     let r = l.map[row];
                     for(var key in r) {
@@ -147,17 +145,6 @@ var keyboard = new Vue({
         },
     }
 });
-
-// Read in data from a default layermaps.c file
-fetch('layermaps.c')
-    .then(response => response.text())
-    .then(text => {
-        if(!keyboard.server_connected) {
-            keyboard.file_data = parseLayerMapsFile(text);
-            keyboard.new_data = keyboard.file_data;
-            keyboard.current_layer = 0;
-        }
-    });
 
 // Extracts only the layernames from a parsed layermaps.c file
 function getLayernamesFromFileData(file_data) {
