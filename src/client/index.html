@@ -43,11 +43,11 @@
             <button v-on:click="removeLayer" v-bind:disabled="layers.length <= 1">remove layer</button>
         </div>
         <div class="options-section">
-            <div class="options-title"> export </div>
-            <button v-on:click="exportMaps">download layermaps.c</button>
-            <button v-on:click="exportMapsServer" v-bind:disabled="!server_connected">send to server</button>
+            <div class="options-title"> layout </div>
+            <button v-on:click="exportMaps">export layermaps.c</button>
+            <button v-on:click="exportMapsServer" v-bind:disabled="!server_connected">upload for build</button>
             <input type="checkbox" v-model="option_backup">backup</input>
-            <input type="checkbox" v-model="option_make">make</input>
+            <input type="checkbox" v-model="option_make">compile</input>
             <input type="checkbox" v-model="option_flash">flash</input>
             <input type="checkbox" v-model="option_clean">clean</input>
         </div>
