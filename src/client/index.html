@@ -37,9 +37,10 @@
     <div id="bottom-controls">
         <div class="options-section">
             <div class="options-title"> layers </div>
-            <input id="newlayername" v-model="newlayername" placeholder="name for new layer"></input>
-            <button v-on:click="addLayer" v-bind:disabled="newlayername == ''">add blank layer</button>
-            <button v-on:click="addLayer" v-bind:disabled="newlayername == ''">copy current layer to new layer</button>
+            <input id="newlayername" v-model="newlayername" placeholder="new layer name"></input>
+            <button v-on:click="renameLayer" v-bind:disabled="newlayername == ''">rename layer</button>
+            <button v-on:click="addLayer" v-bind:disabled="newlayername == ''">add layer</button>
+            <button v-on:click="removeLayer" v-bind:disabled="layers.length <= 1">remove layer</button>
         </div>
         <div class="options-section">
             <div class="options-title"> export </div>

@@ -30,7 +30,6 @@ socket.on('layermaps.c', layermaps_file_text => {
     keyboard.file_data = parseLayerMapsFile(layermaps_file_text);
     keyboard.new_data = keyboard.file_data;
     keyboard.current_layer = 0;
-    keyboard.layers = getLayernamesFromFileData(keyboard.file_data);
 });
 
 // Notify the user of the progress of backend operations
@@ -66,7 +65,6 @@ var keyboard = new Vue({
         new_data: [{name: '', map: [[]]}],
         width: WIDTH,
         height: HEIGHT,
-        layers: [],
         current_layer: -1,
         focused_key: { x:-1, y:-1 },
         newlayername: '',
@@ -89,7 +87,10 @@ var keyboard = new Vue({
                 return this.new_data[this.current_layer].map;
             else
                 return keys;
-        }
+        },
+        layers: function() {
+            return getLayernamesFromFileData(this.new_data);
+        },
     },
     methods: {
         exportMaps: function() {
@@ -106,11 +107,21 @@ var keyboard = new Vue({
         updateKeyFocus: function(x, y) {
             this.focused_key = {x, y};
         },
+        renameLayer: function() {
+            this.new_data[this.current_layer].name = this.newlayername;
+            this.newlayername = '';
+        },
         addLayer: function() {
-            this.layers.push(this.newlayername);
             this.new_data.push({name: this.newlayername,
                 map: keys});
             this.current_layer = this.layers.length-1;
+            this.newlayername = '';
+        },
+        removeLayer: function() {
+            this.new_data.splice(this.current_layer, 1);
+            if(this.current_layer == this.new_data.length) {
+                this.current_layer -= 1;
+            }
         },
         required_functions: function() {
             let req_funcs = [];
@@ -145,7 +156,6 @@ fetch('layermaps.c')
             keyboard.file_data = parseLayerMapsFile(text);
             keyboard.new_data = keyboard.file_data;
             keyboard.current_layer = 0;
-            keyboard.layers = getLayernamesFromFileData(keyboard.file_data);
         }
     });
 
