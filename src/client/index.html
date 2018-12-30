@@ -21,7 +21,7 @@
         <div id="header-controls">
             <div class="option-label">layer</div>
             <select id="layer-select" v-model="current_layer">
-                <option v-for="layer in layers" v-bind:value="layers.indexOf(layer)">{{ layer }}</option>
+                <option v-for="layer in layers" v-bind:value="layers.indexOf(layer)">{{ layers.indexOf(layer) + ' ' + layer }}</option>
             </select>
         </div>
     </div>
