@@ -4,6 +4,7 @@
             <input ref="input"
                     class="key-upper"
                     v-bind:value="key_data"
+                    v-bind:disabled="key_type == 'NONE'"
                     v-on:input="updateKey(key_type, $event.target.value)">
             </input>
             <select ref="select"
