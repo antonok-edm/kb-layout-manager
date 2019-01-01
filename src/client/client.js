@@ -119,7 +119,32 @@ var keyboard = new Vue({
             this.newlayername = '';
         },
         removeLayer: function() {
+            // Remove the layer
             this.layout_data.splice(this.current_layer, 1);
+            // Update the data of all TOGGLE and TARGET keys to account for the
+            // removed layer
+            for(var layer in this.layout_data) {
+                let l = this.layout_data[layer];
+                for(var row in l.map) {
+                    let r = l.map[row];
+                    for(var key in r) {
+                        let k = r[key];
+                        if(k.type == 'TOGGLE' || k.type == 'TARGET') {
+                            let as_number = parseInt(k.data);
+                            if(Number.isInteger(as_number)) {
+                                if(as_number > this.current_layer) {
+                                    k.data = (as_number - 1).toString();
+                                }
+                                else if(as_number == this.current_layer) {
+                                    k.type = 'NONE';
+                                    k.data = '';
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            // Switch to a valid layer index if the last one was removed
             if(this.current_layer == this.layout_data.length) {
                 this.current_layer -= 1;
             }
