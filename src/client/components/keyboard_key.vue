@@ -127,6 +127,7 @@ $textPopupSideOffset: 6em;
     padding: 0
     border: 1px solid #eee
     position: relative
+    cursor: pointer
     .keyboard-upper:focus + &
         z-index: -2
         position: relative
