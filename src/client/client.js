@@ -17,6 +17,9 @@ import status_popup from './components/status_popup.vue';
 const WIDTH = 14;
 const HEIGHT = 5;
 
+// Default value to store in HTML5 local storage when enabled
+const DEFAULT_LOCAL_STORAGE = {};
+
 // Setup websocket connection using socket.io
 const socket = io.connect();
 
@@ -73,6 +76,7 @@ var keyboard = new Vue({
         option_make: true,
         option_flash: true,
         option_clean: true,
+        option_local_storage: false,
     },
     components: {
         'keyboard-key': keyboard_key,
@@ -165,6 +169,16 @@ var keyboard = new Vue({
         cancel_flash: function() {
             socket.emit('cancel_flash');
         },
+        localStorageConsent: function() {
+            if(this.option_local_storage) {
+                // Consent given
+                window.localStorage.setItem('kb-layout-manager-saved-data', JSON.stringify(DEFAULT_LOCAL_STORAGE));
+            }
+            else {
+                // Consent withdrawn
+                window.localStorage.removeItem('kb-layout-manager-saved-data');
+            }
+        },
     }
 });
 
@@ -221,3 +235,9 @@ document.getElementById('import-layermaps-file').addEventListener('change', func
         file_importer.readAsText(file);
     }
 });
+
+// Load saved data from local storage if it's present
+if('kb-layout-manager-saved-data' in window.localStorage) {
+    let saved_data = JSON.parse(window.localStorage.getItem('kb-layout-manager-saved-data'));
+    keyboard.option_local_storage = true;
+}

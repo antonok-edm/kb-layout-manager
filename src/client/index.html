@@ -53,6 +53,11 @@
             <input type="checkbox" v-model="option_flash">flash</input>
             <input type="checkbox" v-model="option_clean">clean</input>
         </div>
+        <div class="options-section">
+            <div class="options-title"> local storage </div>
+            <p>This layout manager can save layouts in your browser for use across sessions. The stored data is only for your own convenience; the only data sent to the layout manager server will be any layout you have active when pressing the "upload for build" button.</p>
+            <input type="checkbox" v-model="option_local_storage" @change="localStorageConsent($event)">consent to local storage</input>
+        </div>
         <status-popup :current_status="server_status" :error_message="server_error_message" v-on:hide_status="set_idle" v-on:cancel_flash="cancel_flash"></status-popup>
     </div>
 </body>
