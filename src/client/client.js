@@ -71,6 +71,7 @@ var keyboard = new Vue({
         server_connected: false,
         server_status: 'idle',
         server_error_message: '',
+        local_storage: DEFAULT_LOCAL_STORAGE,
         option_backup: false,
         option_write: true,
         option_make: true,
@@ -239,5 +240,6 @@ document.getElementById('import-layermaps-file').addEventListener('change', func
 // Load saved data from local storage if it's present
 if('kb-layout-manager-saved-data' in window.localStorage) {
     let saved_data = JSON.parse(window.localStorage.getItem('kb-layout-manager-saved-data'));
+    keyboard.local_storage = saved_data;
     keyboard.option_local_storage = true;
 }
