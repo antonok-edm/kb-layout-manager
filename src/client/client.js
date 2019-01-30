@@ -206,6 +206,9 @@ var keyboard = new Vue({
                 );
             }
         },
+        requestServerMaps: function() {
+            socket.emit('request_saved_map');
+        }
     }
 });
 
