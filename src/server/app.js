@@ -40,17 +40,21 @@ const ext_commands = {
 // Setup socket connection
 io.on('connection', socket => {
     console.log('Client connected.');
+
     // Read layermaps.c file directly from firmware directory and send it
-    fs.readFile(path.join(layermaps_dir, 'layermaps.c'),
-        'ascii',
-        (err, layermaps_text) => {
-            if(err) {
-                console.log("Could not read layermaps.c!");
-                console.log("Exiting.");
-                process.exit()
-            }
-            socket.emit('layermaps.c', layermaps_text);
-        });
+    socket.on('request_saved_map', async function() {
+        fs.readFile(path.join(layermaps_dir, 'layermaps.c'),
+            'ascii',
+            (err, layermaps_text) => {
+                if(err) {
+                    console.log("Could not read layermaps.c!");
+                    console.log("Exiting.");
+                    process.exit()
+                }
+                socket.emit('layermaps.c', layermaps_text);
+            });
+    });
+
     // Process operation requests from the client
     socket.on('layermaps.c', async function(data) {
         if(DEMO_MODE) {

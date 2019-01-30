@@ -18,7 +18,11 @@ const WIDTH = 14;
 const HEIGHT = 5;
 
 // Default value to store in HTML5 local storage when enabled
-const DEFAULT_LOCAL_STORAGE = {};
+const DEFAULT_LOCAL_STORAGE = {
+    last_layout: [
+
+    ],
+};
 
 // Setup websocket connection using socket.io
 const socket = io.connect();
@@ -98,6 +102,7 @@ var keyboard = new Vue({
         loadNewLayerMaps: function(layermaps_file_text) {
             this.layout_data = parseLayerMapsFile(layermaps_file_text);
             this.current_layer = 0;
+            this.sync_storage();
         },
         exportMaps: function() {
             const file_content = createExportFormat(this.layout_data);
@@ -109,6 +114,7 @@ var keyboard = new Vue({
         },
         processKeyUpdate: function(x, y, type, data) {
             this.layout_data[this.current_layer].map[y][x] = {data: data, type: type};
+            this.sync_storage();
         },
         updateKeyFocus: function(x, y) {
             this.focused_key = {x, y};
@@ -116,12 +122,14 @@ var keyboard = new Vue({
         renameLayer: function() {
             this.layout_data[this.current_layer].name = this.newlayername;
             this.newlayername = '';
+            this.sync_storage();
         },
         addLayer: function() {
             this.layout_data.push({name: this.newlayername,
                 map: keys});
             this.current_layer = this.layers.length-1;
             this.newlayername = '';
+            this.sync_storage();
         },
         removeLayer: function() {
             // Remove the layer
@@ -150,6 +158,7 @@ var keyboard = new Vue({
             if(this.current_layer == this.layout_data.length) {
                 this.current_layer -= 1;
             }
+            this.sync_storage();
         },
         required_functions: function() {
             let req_funcs = [];
@@ -173,11 +182,28 @@ var keyboard = new Vue({
         localStorageConsent: function() {
             if(this.option_local_storage) {
                 // Consent given
-                window.localStorage.setItem('kb-layout-manager-saved-data', JSON.stringify(DEFAULT_LOCAL_STORAGE));
+                this.sync_storage();
             }
             else {
                 // Consent withdrawn
                 window.localStorage.removeItem('kb-layout-manager-saved-data');
+            }
+        },
+        load_last_session: function() {
+            this.layout_data = this.local_storage.last_layout;
+            this.current_layer = 0;
+        },
+        // A session-based cache of the local storage data is maintained to prevent
+        // disabling and enabling the local storage option from obliterating data
+        // within the session. While local storage is disabled, this will only update
+        // that cache.
+        sync_storage: function() {
+            this.local_storage.last_layout = this.layout_data;
+            if(this.option_local_storage) {
+                window.localStorage.setItem(
+                    'kb-layout-manager-saved-data',
+                    JSON.stringify(this.local_storage),
+                );
             }
         },
     }
@@ -242,4 +268,7 @@ if('kb-layout-manager-saved-data' in window.localStorage) {
     let saved_data = JSON.parse(window.localStorage.getItem('kb-layout-manager-saved-data'));
     keyboard.local_storage = saved_data;
     keyboard.option_local_storage = true;
+    keyboard.load_last_session();
+} else {
+    socket.emit('request_saved_map');
 }
