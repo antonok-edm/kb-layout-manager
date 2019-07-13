@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --require @babel/register",
     "build": "webpack -p",
-    "server": "node src/server/app.js"
+    "start": "node src/server/app.js"
   },
   "repository": {
     "type": "git",
