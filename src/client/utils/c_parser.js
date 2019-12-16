@@ -17,8 +17,8 @@ function parseLayerMapsFile(c_source) {
             .split('},')
             .slice(0, -1);
         let layermap = [];
-        for(const rowtext in rows) {
-            const keystrings = rows[rowtext].replace(/{/g, '')
+        for(const rowtext of rows) {
+            const keystrings = rowtext.replace(/{/g, '')
                 .replace(/}/g, '')
                 .split(',');
             layermap.push(keystringsToKeyArray(keystrings));

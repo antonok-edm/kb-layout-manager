@@ -123,21 +123,18 @@ var keyboard = new Vue({
             this.layout_data.splice(this.current_layer, 1);
             // Update the data of all TOGGLE and TARGET keys to account for the
             // removed layer
-            for(let layer in this.layout_data) {
-                let l = this.layout_data[layer];
-                for(let row in l.map) {
-                    let r = l.map[row];
-                    for(let key in r) {
-                        let k = r[key];
-                        if(k.type == 'TOGGLE' || k.type == 'TARGET') {
-                            const as_number = parseInt(k.data);
+            for(let layer of this.layout_data) {
+                for(let row of layer.map) {
+                    for(let key of row) {
+                        if(key.type == 'TOGGLE' || key.type == 'TARGET') {
+                            const as_number = parseInt(key.data);
                             if(Number.isInteger(as_number)) {
                                 if(as_number > this.current_layer) {
-                                    k.data = (as_number - 1).toString();
+                                    key.data = (as_number - 1).toString();
                                 }
                                 else if(as_number == this.current_layer) {
-                                    k.type = 'NONE';
-                                    k.data = '';
+                                    key.type = 'NONE';
+                                    key.data = '';
                                 }
                             }
                         }
@@ -151,14 +148,11 @@ var keyboard = new Vue({
         },
         required_functions: function() {
             let req_funcs = [];
-            for(const layer in this.layout_data) {
-                const l = this.layout_data[layer];
-                for(const row in l.map) {
-                    const r = l.map[row];
-                    for(const key in r) {
-                        const k = r[key];
-                        if(k.type == 'FUNC' && !req_funcs.includes(k.data)) {
-                            req_funcs.push(k.data);
+            for(const layer of this.layout_data) {
+                for(const row of layer.map) {
+                    for(const key of row) {
+                        if(key.type == 'FUNC' && !req_funcs.includes(key.data)) {
+                            req_funcs.push(key.data);
                         }
                     }
                 }
@@ -177,8 +171,8 @@ var keyboard = new Vue({
 // Extracts only the layernames from a parsed layermaps.c file
 function getLayernamesFromFileData(file_data) {
     let layernames = [];
-    for(const layer in file_data)
-        layernames.push(file_data[layer].name);
+    for(const layer of file_data)
+        layernames.push(layer.name);
     return layernames;
 }
 
