@@ -190,7 +190,7 @@ const keyboard_key = {
     },
     methods: {
         updateKey: function(new_type, new_data) {
-            let validated_data = validateByType(new_data, new_type);
+            const validated_data = validateByType(new_data, new_type);
             this.$refs.input.value = validated_data;
             this.$emit('updatekey', this.x, this.y, new_type, validated_data);
         },

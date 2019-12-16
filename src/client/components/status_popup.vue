@@ -99,40 +99,6 @@ const status_popup = {
     data: function() {
         return { status_to_string : status_to_string };
     },
-    /*template: '<div id="status-popup" v-on:click="status_clicked" ' +
-            'v-bind:class="show_if_not_idle">' +
-        '<div class="status-top-flex">' +
-            '<span class="status-title">' +
-                '{{ status_string }}' +
-            '</span>' +
-            '</br>' +
-            '<span class="status-info"' +
-                    'v-bind:class="show_if_flash">' +
-                'Reset keyboard to bootloader ' +
-                'to continue' +
-            '</span>' +
-            '<span class="status-info" ' +
-                    'v-bind:class="show_if_done">' +
-                'Click to dismiss' +
-            '</span>' +
-            '<button class="status-cancel" ' +
-                    'v-bind:class="show_if_flash" ' +
-                    'v-on:click="cancel_flash">' +
-                'Cancel' +
-            '</button>' +
-        '</div>' +
-        '<div class="status-bottom-flex">' +
-            '<div class="loading-frame">' +
-                '<div class="loading-bar" ' +
-                        'v-bind:class="class_by_status">' +
-                '</div>' +
-            '</div>' +
-            '<span class="status-error-info" ' +
-                    'v-bind:class="show_if_error">' +
-                '{{ error_message }}' +
-            '</span>' +
-        '</div>' +
-    '</div>',*/
     computed: {
         status_string: function() {
             return status_to_string[this.current_status];

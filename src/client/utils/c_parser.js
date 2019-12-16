@@ -1,24 +1,24 @@
 // Returns a parsed object interpretation of the text from a layermaps.c file
 function parseLayerMapsFile(c_source) {
     let maps = [];
-    let text = c_source.split('BEGIN_KEYMAPS')[1].split('END_KEYMAPS')[0];
-    let consts = text.split('\n{//').filter(text => {
-        let unspaced = text.replace(/[\s\n]/g,'');
+    const text = c_source.split('BEGIN_KEYMAPS')[1].split('END_KEYMAPS')[0];
+    const consts = text.split('\n{//').filter(text => {
+        const unspaced = text.replace(/[\s\n]/g,'');
         return unspaced.length > 6 && unspaced.slice(0, 1) == '{'
             && unspaced.slice(-3) == ',},';
     });
-    for(var constblock in consts) {
+    for(const constblock in consts) {
         let block = consts[constblock];
-        let meta = JSON.parse(block.split('\n')[0].trim());
+        const meta = JSON.parse(block.split('\n')[0].trim());
         block = block.slice(block.indexOf('\n')).trim();
-        let layername = 'name' in meta ? meta.name : 'unnamed';
-        let rows = block.slice(0, block.lastIndexOf('}'))
+        const layername = 'name' in meta ? meta.name : 'unnamed';
+        const rows = block.slice(0, block.lastIndexOf('}'))
             .replace(/\s/g,'')
             .split('},')
             .slice(0, -1);
         let layermap = [];
-        for(var rowtext in rows) {
-            let keystrings = rows[rowtext].replace(/{/g, '')
+        for(const rowtext in rows) {
+            const keystrings = rows[rowtext].replace(/{/g, '')
                 .replace(/}/g, '')
                 .split(',');
             layermap.push(keystringsToKeyArray(keystrings));

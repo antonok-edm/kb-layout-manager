@@ -6,16 +6,16 @@ const export_header_format =
 
 // File export functions
 function createExportFormat(file_data) {
-    let contents = createExportHeader() + '\nBEGIN_KEYMAPS\n';
+    const contents = createExportHeader() + '\nBEGIN_KEYMAPS\n';
     return file_data.reduce((accum, current) =>
         accum + '\n' + createExportForLayer(current), contents)
         + '\nEND_KEYMAPS\n';
 }
 function createExportForLayer(layer_data) {
-    let metadata = {
+    const metadata = {
         name: layer_data.name
     };
-    let output = '{//' + JSON.stringify(metadata);
+    const output = '{//' + JSON.stringify(metadata);
     return layer_data.map.reduce((accum, current) =>
         accum + '\n' + createExportForRow(current), output) + '\n},\n';
 }
@@ -30,7 +30,7 @@ function createExportForKey(key_data) {
         return key_data.type + '(' + key_data.data + '),';
 }
 function createExportHeader() {
-    let header = export_header_format.replace(/%%DATE%%/g, new Date().toDateString());
+    const header = export_header_format.replace(/%%DATE%%/g, new Date().toDateString());
     return header;
 }
 

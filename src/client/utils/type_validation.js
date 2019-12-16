@@ -52,7 +52,7 @@ const validators = {
         return stripIllegalChars(data);
     },
     'HIDMOD': (data) => {
-        let comma_pos = data.indexOf(',');
+        const comma_pos = data.indexOf(',');
         if(comma_pos > 0)
             return stripIllegalChars(data.substring(0, comma_pos)
                 .toUpperCase()) + ','

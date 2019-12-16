@@ -18,7 +18,7 @@ const WIDTH = 14;
 const HEIGHT = 5;
 
 // Setup websocket connection using socket.io
-var socket = io.connect();
+const socket = io.connect();
 
 socket.on('connect', () => keyboard.server_connected = true);
 
@@ -47,10 +47,10 @@ socket.on('progress', report => {
 });
 
 // Initialize keys, a minimal 2D array of key data
-var keys = new Array(HEIGHT);
-for(var y = 0; y < HEIGHT; y++) {
+let keys = new Array(HEIGHT);
+for(let y = 0; y < HEIGHT; y++) {
     keys[y] = new Array(WIDTH);
-    for(var x = 0; x < WIDTH; x++) {
+    for(let x = 0; x < WIDTH; x++) {
         keys[y][x] = {type: 'NONE', data: ''};
     }
 }
@@ -95,11 +95,11 @@ var keyboard = new Vue({
             this.current_layer = 0;
         },
         exportMaps: function() {
-            let file_content = createExportFormat(this.layout_data);
+            const file_content = createExportFormat(this.layout_data);
             saveFile('layermaps.c', file_content);
         },
         exportMapsServer: function() {
-            let file_content = createExportFormat(this.layout_data);
+            const file_content = createExportFormat(this.layout_data);
             sendToServer(file_content);
         },
         processKeyUpdate: function(x, y, type, data) {
@@ -123,14 +123,14 @@ var keyboard = new Vue({
             this.layout_data.splice(this.current_layer, 1);
             // Update the data of all TOGGLE and TARGET keys to account for the
             // removed layer
-            for(var layer in this.layout_data) {
+            for(let layer in this.layout_data) {
                 let l = this.layout_data[layer];
-                for(var row in l.map) {
+                for(let row in l.map) {
                     let r = l.map[row];
-                    for(var key in r) {
+                    for(let key in r) {
                         let k = r[key];
                         if(k.type == 'TOGGLE' || k.type == 'TARGET') {
-                            let as_number = parseInt(k.data);
+                            const as_number = parseInt(k.data);
                             if(Number.isInteger(as_number)) {
                                 if(as_number > this.current_layer) {
                                     k.data = (as_number - 1).toString();
@@ -151,12 +151,12 @@ var keyboard = new Vue({
         },
         required_functions: function() {
             let req_funcs = [];
-            for(var layer in this.layout_data) {
-                let l = this.layout_data[layer];
-                for(var row in l.map) {
-                    let r = l.map[row];
-                    for(var key in r) {
-                        let k = r[key];
+            for(const layer in this.layout_data) {
+                const l = this.layout_data[layer];
+                for(const row in l.map) {
+                    const r = l.map[row];
+                    for(const key in r) {
+                        const k = r[key];
                         if(k.type == 'FUNC' && !req_funcs.includes(k.data)) {
                             req_funcs.push(k.data);
                         }
@@ -177,7 +177,7 @@ var keyboard = new Vue({
 // Extracts only the layernames from a parsed layermaps.c file
 function getLayernamesFromFileData(file_data) {
     let layernames = [];
-    for(var layer in file_data)
+    for(const layer in file_data)
         layernames.push(file_data[layer].name);
     return layernames;
 }
@@ -191,7 +191,7 @@ function saveFile(name, content) {
         + encodeURIComponent(content));
 
     if(document.createEvent) {
-        let e= document.createEvent('MouseEvents');
+        let e = document.createEvent('MouseEvents');
         e.initEvent('click', true, true);
         link.dispatchEvent(e);
     }
@@ -203,7 +203,7 @@ function saveFile(name, content) {
 // Sends the text of a layermaps.c file to the server, along with
 // options specified in the main Vue instance
 function sendToServer(file_content) {
-    let data = {
+    const data = {
         options: {
             backup: keyboard.option_backup,
             write:  keyboard.option_write,
@@ -222,7 +222,7 @@ file_importer.onloadend = function() {
     keyboard.loadNewLayerMaps(this.result);
 };
 document.getElementById('import-layermaps-file').addEventListener('change', function() {
-    let file = this.files[0];
+    const file = this.files[0];
     if(file) {
         file_importer.readAsText(file);
     }
