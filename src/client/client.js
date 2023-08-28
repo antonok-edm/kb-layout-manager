@@ -169,15 +169,7 @@ function saveFile(name, content) {
     link.setAttribute('download', name);
     link.setAttribute('href', 'data:text/plain;charset=utf-8,'
         + encodeURIComponent(content));
-
-    if(document.createEvent) {
-        let e = document.createEvent('MouseEvents');
-        e.initEvent('click', true, true);
-        link.dispatchEvent(e);
-    }
-    else {
-        link.click();
-    }
+    link.click();
 }
 
 // Sends the text of a layermaps.c file to the server, along with
