@@ -38,5 +38,16 @@ The layout manager will be accessible on localhost at port 17407.
 
 Flashing firmware to the keyboard requires [the command-line Teensy loader](https://github.com/PaulStoffregen/teensy_loader_cli) to be installed.
 
+### demo mode
+
+Build the frontend in "demo mode" by setting the `KB_LAYOUT_MANAGER_DEMO_MODE` environment variable; e.g.
+
+``` shell
+KB_LAYOUT_MANAGER_DEMO_MODE=1 npm run build
+```
+
+This will prevent websocket code from being imported, reducing JS bundle size and allowing the site to be served as static files from the `dist` directory.
+Serverside operations like compiling and flashing will be disabled in demo mode.
+
 ## license
 kb-layout-manager is licensed under GPLv3. See LICENSE for more information.

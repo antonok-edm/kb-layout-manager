@@ -11,11 +11,6 @@ const exec = util.promisify(require('child_process').exec);
 // Port to run on
 const PORT = 17407;
 
-// Specify the "KB_LAYOUT_MANAGER_DEMO_MODE" environment variable to run a
-// restricted featureset. This will assume all websocket connections are
-// untrusted.
-const DEMO_MODE = ("KB_LAYOUT_MANAGER_DEMO_MODE" in process.env);
-
 // Directory of keyboard firmware
 const firmware_dir = path.join('..', 'kb', 'firmware');
 
@@ -53,30 +48,21 @@ io.on('connection', socket => {
         });
     // Process operation requests from the client
     socket.on('layermaps.c', async function(data) {
-        if(DEMO_MODE) {
-            setTimeout(() => socket.emit('progress', { op: 'make', during: '', traceback: {} }), 0);
-            setTimeout(() => socket.emit('progress', { op: 'flash', during: '', traceback: {} }), 1500);
-            setTimeout(() => socket.emit('progress', { op: 'error', during: 'make', traceback:
-                { stderr: 'Serverside operations are a WIP for this live demo. '
-                    + 'For full functionality, clone the project on Gitlab and try it locally!' } }), 2500);
-        }
-        else {
-            let options = data.options;
-            let file_text = data.file_text;
-            await writeTmpFile('layermaps.c', file_text);
-            //for(i in operations) {
-                //op = operations[i];
-            for(op in ext_commands) {
-                if(options[op]) {
-                    let res = await do_op(op);
-                    if(res === -1) {
-                        return;
-                    }
+        let options = data.options;
+        let file_text = data.file_text;
+        await writeTmpFile('layermaps.c', file_text);
+        //for(i in operations) {
+            //op = operations[i];
+        for(op in ext_commands) {
+            if(options[op]) {
+                let res = await do_op(op);
+                if(res === -1) {
+                    return;
                 }
             }
-            socket.emit('progress',
-                { op: "done", during: "", traceback: "" });
         }
+        socket.emit('progress',
+            { op: "done", during: "", traceback: "" });
     });
 
     async function do_op(op) {
@@ -104,6 +90,6 @@ async function writeTmpFile(name, contents) {
 
 http.listen(PORT, () =>
     console.log('kb layout manager backend running on http://localhost:'
-        + PORT + (DEMO_MODE ? ' in demo mode' : '')));
+        + PORT));
 
 app.use(express.static(path.join('dist')));

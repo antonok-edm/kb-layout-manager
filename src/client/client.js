@@ -1,14 +1,18 @@
-import io from 'socket.io-client';
 import { createApp } from 'vue/dist/vue.esm-bundler.js';
 
 import './styles/style.sass';
 import './favicon/favicon.ico';
 
-import parseLayerMapsFile from './utils/c_parser';
-import createExportFormat from './utils/c_formatter';
+import parseLayerMapsFile from './utils/c_parser.js';
+import createExportFormat from './utils/c_formatter.js';
 
 import keyboard_key from './components/keyboard_key.vue';
 import status_popup from './components/status_popup.vue';
+
+// This import is managed by a webpack plugin. Setting the
+// `KB_LAYOUT_MANAGER_DEMO_MODE` environment variable will import
+// `mock_server_connection.js` instead.
+import ServerConnection from './utils/server_connection.js';
 
 /*
  *      Global constants
@@ -25,6 +29,8 @@ for(let y = 0; y < HEIGHT; y++) {
         keys[y][x] = {type: 'NONE', data: ''};
     }
 }
+
+let server_connection;
 
 // Initialize the Vue app that connects all page elements
 const app = createApp({
@@ -148,7 +154,7 @@ const app = createApp({
             this.server_status = 'idle';
         },
         cancel_flash: function() {
-            socket.emit('cancel_flash');
+            server_connection.cancelFlash();
         },
     }
 });
@@ -185,34 +191,32 @@ function sendToServer(file_content) {
         },
         file_text: file_content
     };
-    socket.emit('layermaps.c', data);
+    server_connection.sendLayermaps(data);
 }
 
-// Setup websocket connection using socket.io
-const socket = io.connect();
+const server_callbacks = {
+    'connect': () => keyboard.server_connected = true,
+    'disconnect': () => keyboard.server_connected = false,
+    // Parse a layermap file from the server backend and
+    // set it as the current layout
+    'layermaps.c': layermaps_file_text => {
+        keyboard.loadNewLayerMaps(layermaps_file_text);
+    },
+    // Notify the user of the progress of backend operations
+    'progress': report => {
+        keyboard.server_status = report.op;
+        if(report.op == 'flash') {
+            keyboard.server_error_message = 'Reset to bootloader to continue...';
+        }
+        else if(report.op == 'error') {
+            keyboard.server_error_message = report.traceback.stderr;
+            // Also show more detailed information in the browser console
+            console.log('The server encountered the following error during '
+                + report.during + ':\n' + report.traceback.stderr);
+            console.log('The command "' + report.traceback.cmd
+                + '" exited with code ' + report.traceback.code);
+        }
+    },
+};
 
-socket.on('connect', () => keyboard.server_connected = true);
-
-socket.on('disconnect', () => keyboard.server_connected = false);
-
-// Parse a layermap file from the server backend and
-// set it as the current layout
-socket.on('layermaps.c', layermaps_file_text => {
-    keyboard.loadNewLayerMaps(layermaps_file_text);
-});
-
-// Notify the user of the progress of backend operations
-socket.on('progress', report => {
-    keyboard.server_status = report.op;
-    if(report.op == 'flash') {
-        keyboard.server_error_message = 'Reset to bootloader to continue...';
-    }
-    else if(report.op == 'error') {
-        keyboard.server_error_message = report.traceback.stderr;
-        // Also show more detailed information in the browser console
-        console.log('The server encountered the following error during '
-            + report.during + ':\n' + report.traceback.stderr);
-        console.log('The command "' + report.traceback.cmd
-            + '" exited with code ' + report.traceback.code);
-    }
-});
+server_connection = new ServerConnection(server_callbacks);
