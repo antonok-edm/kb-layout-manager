@@ -6,7 +6,6 @@
                     v-bind:value="key_data"
                     v-bind:disabled="key_type == 'NONE'"
                     v-on:input="updateKey(key_type, $event.target.value)">
-            </input>
             <select ref="select"
                     class="key-upper"
                     v-bind:class="class_by_type"
@@ -78,7 +77,7 @@ $hidmodTypeHighlight: #ff0
     position: relative
     width: 3.2em
     height: 3.2em
-$textPopupSideOffset: 6em;
+$textPopupSideOffset: 6em
 .keyboard-key input
     margin: 0
     padding: 0

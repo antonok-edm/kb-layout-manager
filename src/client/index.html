@@ -44,7 +44,7 @@
         </div>
         <div class="options-section">
             <div class="options-title"> layout </div>
-            <input type="file" id="import-layermaps-file" class="hidden-file-input" name="layermaps.c"/>
+            <input type="file" v-on:change="newLayerMapsImported" id="import-layermaps-file" class="hidden-file-input" name="layermaps.c"/>
             <label for="import-layermaps-file">import layermaps.c</label>
             <button v-on:click="exportMaps">export layermaps.c</button>
             <button v-on:click="exportMapsServer" v-bind:disabled="!server_connected">upload for build</button>

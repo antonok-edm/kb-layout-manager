@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import Vue from 'vue/dist/vue.js';
+import { createApp } from 'vue/dist/vue.esm-bundler.js';
 
 import './styles/style.sass';
 import './favicon/favicon.ico';
@@ -17,35 +17,6 @@ import status_popup from './components/status_popup.vue';
 const WIDTH = 14;
 const HEIGHT = 5;
 
-// Setup websocket connection using socket.io
-const socket = io.connect();
-
-socket.on('connect', () => keyboard.server_connected = true);
-
-socket.on('disconnect', () => keyboard.server_connected = false);
-
-// Parse a layermap file from the server backend and
-// set it as the current layout
-socket.on('layermaps.c', layermaps_file_text => {
-    keyboard.loadNewLayerMaps(layermaps_file_text);
-});
-
-// Notify the user of the progress of backend operations
-socket.on('progress', report => {
-    keyboard.server_status = report.op;
-    if(report.op == 'flash') {
-        keyboard.server_error_message = 'Reset to bootloader to continue...';
-    }
-    else if(report.op == 'error') {
-        keyboard.server_error_message = report.traceback.stderr;
-        // Also show more detailed information in the browser console
-        console.log('The server encountered the following error during '
-            + report.during + ':\n' + report.traceback.stderr);
-        console.log('The command "' + report.traceback.cmd
-            + '" exited with code ' + report.traceback.code);
-    }
-});
-
 // Initialize keys, a minimal 2D array of key data
 let keys = new Array(HEIGHT);
 for(let y = 0; y < HEIGHT; y++) {
@@ -55,24 +26,25 @@ for(let y = 0; y < HEIGHT; y++) {
     }
 }
 
-// Initialize the Vue object that connects all page elements
-var keyboard = new Vue({
-    el: '#body',
-    data: {
-        layout_data: [{name: '', map: [[]]}],
-        width: WIDTH,
-        height: HEIGHT,
-        current_layer: -1,
-        focused_key: { x:-1, y:-1 },
-        newlayername: '',
-        server_connected: false,
-        server_status: 'idle',
-        server_error_message: '',
-        option_backup: false,
-        option_write: true,
-        option_make: true,
-        option_flash: true,
-        option_clean: true,
+// Initialize the Vue app that connects all page elements
+const app = createApp({
+    data: () => {
+        return {
+            layout_data: [{name: '', map: [[]]}],
+            width: WIDTH,
+            height: HEIGHT,
+            current_layer: -1,
+            focused_key: { x:-1, y:-1 },
+            newlayername: '',
+            server_connected: false,
+            server_status: 'idle',
+            server_error_message: '',
+            option_backup: false,
+            option_write: true,
+            option_make: true,
+            option_flash: true,
+            option_clean: true,
+        };
     },
     components: {
         'keyboard-key': keyboard_key,
@@ -90,6 +62,19 @@ var keyboard = new Vue({
         },
     },
     methods: {
+        newLayerMapsImported: function(e) {
+            const file_importer = new FileReader();
+            const keyboard = this;
+            file_importer.onloadend = function() {
+                keyboard.loadNewLayerMaps(this.result);
+            };
+
+            const file = e.target.files[0];
+            if(file) {
+                file_importer.readAsText(file);
+            }
+            e.target.value = '';
+        },
         loadNewLayerMaps: function(layermaps_file_text) {
             this.layout_data = parseLayerMapsFile(layermaps_file_text);
             this.current_layer = 0;
@@ -167,6 +152,7 @@ var keyboard = new Vue({
         },
     }
 });
+const keyboard = app.mount('#body');
 
 // Extracts only the layernames from a parsed layermaps.c file
 function getLayernamesFromFileData(file_data) {
@@ -195,7 +181,7 @@ function saveFile(name, content) {
 }
 
 // Sends the text of a layermaps.c file to the server, along with
-// options specified in the main Vue instance
+// options specified in the main Vue app
 function sendToServer(file_content) {
     const data = {
         options: {
@@ -210,14 +196,31 @@ function sendToServer(file_content) {
     socket.emit('layermaps.c', data);
 }
 
-// Register an event listener for the file import button
-const file_importer = new FileReader();
-file_importer.onloadend = function() {
-    keyboard.loadNewLayerMaps(this.result);
-};
-document.getElementById('import-layermaps-file').addEventListener('change', function() {
-    const file = this.files[0];
-    if(file) {
-        file_importer.readAsText(file);
+// Setup websocket connection using socket.io
+const socket = io.connect();
+
+socket.on('connect', () => keyboard.server_connected = true);
+
+socket.on('disconnect', () => keyboard.server_connected = false);
+
+// Parse a layermap file from the server backend and
+// set it as the current layout
+socket.on('layermaps.c', layermaps_file_text => {
+    keyboard.loadNewLayerMaps(layermaps_file_text);
+});
+
+// Notify the user of the progress of backend operations
+socket.on('progress', report => {
+    keyboard.server_status = report.op;
+    if(report.op == 'flash') {
+        keyboard.server_error_message = 'Reset to bootloader to continue...';
+    }
+    else if(report.op == 'error') {
+        keyboard.server_error_message = report.traceback.stderr;
+        // Also show more detailed information in the browser console
+        console.log('The server encountered the following error during '
+            + report.during + ':\n' + report.traceback.stderr);
+        console.log('The command "' + report.traceback.cmd
+            + '" exited with code ' + report.traceback.code);
     }
 });

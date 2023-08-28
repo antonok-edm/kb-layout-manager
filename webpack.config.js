@@ -1,5 +1,6 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const { VueLoaderPlugin } = require("vue-loader");
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -13,25 +14,25 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
-                //exclude: /(node_modules|dist|app.js)/,
-                use: ['babel-loader', 'eslint-loader'],
+                test: /\.vue$/,
+                use: ['vue-loader'],
             },
             {
                 test: /\.s?(c|a)?ss$/,
-                loaders: ['vue-style-loader', 'style-loader', 'css-loader', {loader: 'sass-loader', options: {indentedSyntax: true}}],
+                use: ['vue-style-loader', 'css-loader', {loader: 'sass-loader', options: {sassOptions: {indentedSyntax: true}}}],
+            },
+            {
+                test: /\.js$/,
+                //exclude: /(node_modules|dist|app.js)/,
+                use: ['babel-loader'],
             },
             {
                 test: /\.html$/,
                 use: ['html-loader'],
             },
             {
-                test: /\.vue$/,
-                use: ['vue-loader'],
-            },
-            {
                 test: /\.ico$/,
-                loader: 'file-loader?name=[name].[ext]',
+                use: {loader: 'file-loader', options: {name: '[name].[ext]'}},
             },
         ],
     },
@@ -41,5 +42,6 @@ module.exports = {
             filename: "index.html",
         }),
         new VueLoaderPlugin(),
+        new ESLintPlugin({}),
     ],
 };

@@ -2,7 +2,7 @@
     <div id="status-popup" v-on:click="status_clicked" v-bind:class="show_if_not_idle">
         <div class="status-top-flex">
             <span class="status-title"> {{ status_string }} </span>
-            </br>
+            <br>
             <span class="status-info" v-bind:class="show_if_flash">
                 Reset keyboard to bootloader to continue
             </span>
@@ -42,7 +42,7 @@
     border-bottom: .35em solid #222
     display: flex
     flex-direction: column
-    z-index: 10;
+    z-index: 10
 .status-top-flex
     flex: 2
 .status-bottom-flex
@@ -68,11 +68,11 @@
     &.status-idle
         width: 0
     &.status-make
-        width: 18em * 1 / 4
+        width: calc(18em * 1 / 4)
     &.status-flash
-        width: 18em * 2 / 4
+        width: calc(18em * 2 / 4)
     &.status-clean
-        width: 18em * 3 / 4
+        width: calc(18em * 3 / 4)
     &.status-done
         width: 18em
     &.status-error
