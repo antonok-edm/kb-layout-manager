@@ -22,11 +22,6 @@ module.exports = {
                 use: ['vue-style-loader', 'css-loader', {loader: 'sass-loader', options: {sassOptions: {indentedSyntax: true}}}],
             },
             {
-                test: /\.js$/,
-                //exclude: /(node_modules|dist|app.js)/,
-                use: ['babel-loader'],
-            },
-            {
                 test: /\.html$/,
                 use: ['html-loader'],
             },

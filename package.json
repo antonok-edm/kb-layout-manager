@@ -23,10 +23,6 @@
     "socket.io": "^2.4.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.2.3",
-    "@babel/register": "^7.0.0",
-    "babel-loader": "^8.0.4",
     "chai": "^4.2.0",
     "css-loader": "^6.8.1",
     "eslint": "^8.48.0",
