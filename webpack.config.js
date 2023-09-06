@@ -22,7 +22,17 @@ module.exports = {
             },
             {
                 test: /\.s?(c|a)?ss$/,
-                use: ['vue-style-loader', 'css-loader', {loader: 'sass-loader', options: {sassOptions: {indentedSyntax: true}}}],
+                oneOf: [
+                    {
+                        // load vue component styles inline
+                        resourceQuery: /^\?vue/,
+                        use: ['vue-style-loader', 'css-loader', {loader: 'sass-loader', options: {sassOptions: {indentedSyntax: true}}}],
+                    },
+                    {
+                        // serve standalone stylesheets as static CSS files
+                        use: [{loader: 'file-loader', options: {name: '[name].css'}}, {loader: 'sass-loader', options: {sassOptions: {indentedSyntax: true}}}],
+                    }
+                ]
             },
             {
                 test: /\.html$/,
