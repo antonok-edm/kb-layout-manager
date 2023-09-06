@@ -14,6 +14,11 @@ import status_popup from './components/status_popup.vue';
 // `mock_server_connection.js` instead.
 import ServerConnection from './utils/server_connection.js';
 
+// Scripts are enabled, activate the continue button
+const continueButton = document.getElementById('continue-button');
+continueButton.classList.remove('disabled');
+continueButton.title = '';
+
 /*
  *      Global constants
  */
@@ -68,6 +73,9 @@ const app = createApp({
         },
     },
     methods: {
+        dismissSplash: function() {
+            document.getElementById('kb2-notice').style.display = 'none';
+        },
         newLayerMapsImported: function(e) {
             const file_importer = new FileReader();
             const keyboard = this;

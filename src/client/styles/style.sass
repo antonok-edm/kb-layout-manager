@@ -144,6 +144,7 @@ input
     img
         margin-bottom: -0.5em
         height: 2em
+        width: 2em * $kb2-logo-aspect
 
 .kb2-notice-details
     color: #ccc
@@ -157,6 +158,10 @@ input
 .kb2-notice-nav a
     cursor: pointer
     margin: 1em
+
+a.disabled
+    filter: brightness(0.5)
+    cursor: not-allowed
 
 .kb2-notice-nav a div
     border: 1px solid #555
@@ -176,7 +181,7 @@ input
     span
         font-size: 3em
 
-.kb2-notice-nav a div:hover
+.kb2-notice-nav a:not(.disabled) div:hover
     box-shadow: 0 0 2em #444 inset, 0 0 2em #222
 
 @media screen and (orientation: portrait)
