@@ -136,7 +136,35 @@ input
     color: #fff
     align-items: center
     background: linear-gradient(-72deg, #000020, #000 5%, #000 80%, #181818)
-    transition: display 1s
+
+.kb2-notice-title
+    animation: become-visible 0.25s linear 0s
+    animation-fill-mode: both
+
+.kb2-notice-details
+    animation: become-visible 0.25s linear 0.25s
+    animation-fill-mode: both
+
+.kb2-notice-nav a div
+    animation: become-visible 2s linear 0.75s
+    animation-fill-mode: both
+
+.kb2-notice-nav .kb2-link
+    animation: become-visible 0.5s linear 0.75s
+    animation-fill-mode: both
+
+@keyframes become-visible
+    0%
+        visibility: none
+        opacity: 0
+    1%
+        visibility: visible
+        opacity: 0
+    100%
+        opacity: 1
+
+// prevent page reflow during load
+$kb2-logo-aspect: 2.5872226316132614
 
 .kb2-notice-title
     margin-bottom: 0.5em
