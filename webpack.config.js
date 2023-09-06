@@ -29,7 +29,7 @@ module.exports = {
                 use: ['html-loader'],
             },
             {
-                test: [/\.ico$/, /\.c$/],
+                test: [/\.ico$/, /\.c$/, /\.svg$/],
                 use: {loader: 'file-loader', options: {name: '[name].[ext]'}},
             },
         ],

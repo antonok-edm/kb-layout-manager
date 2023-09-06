@@ -55,6 +55,22 @@
         </div>
         <status-popup :current_status="server_status" :error_message="server_error_message" v-on:hide_status="set_idle" v-on:cancel_flash="cancel_flash"></status-popup>
     </div>
+    <div id="kb2-notice">
+        <span class="kb2-notice-title"><img src="/kb2.svg" alt="kb2"> is coming.</span>
+        <span class="kb2-notice-details">Featuring built-in password manager, 2FA, Unicode database, filesystem, and more.</span>
+        <div class="kb2-notice-nav">
+            <a href="https://kb2.antonok.com">
+                <div class="kb2-link">
+                    <span>Show me ↪</span>
+                </div>
+            </a>
+            <a onclick="document.getElementById('kb2-notice').style.display = 'none'">
+                <div>
+                    <span>Continue to kb layout manager ↪</span>
+                </div>
+            </a>
+        </div>
+    </div>
 </div>
 </body>
 </html>

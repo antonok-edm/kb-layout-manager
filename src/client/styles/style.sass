@@ -122,3 +122,71 @@ input
         overflow: hidden
         position: absolute
         z-index: -1
+
+#kb2-notice
+    position: absolute
+    top: 0
+    left: 0
+    width: 100vw
+    height: 100vh
+    background: #000
+    display: flex
+    flex-direction: column
+    justify-content: center
+    color: #fff
+    align-items: center
+    background: linear-gradient(-72deg, #000020, #000 5%, #000 80%, #181818)
+    transition: display 1s
+
+.kb2-notice-title
+    margin-bottom: 0.5em
+    font-size: 5em
+    img
+        margin-bottom: -0.5em
+        height: 2em
+
+.kb2-notice-details
+    color: #ccc
+
+.kb2-notice-nav
+    display: flex
+    flex-direction: row
+    align-items: center
+    padding-top: 2em
+
+.kb2-notice-nav a
+    cursor: pointer
+    margin: 1em
+
+.kb2-notice-nav a div
+    border: 1px solid #555
+    border-radius: 1em
+    width: min(20vw, 20vh)
+    height: min(20vw, 20vh)
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
+    transition: box-shadow 0.1s
+
+.kb2-notice-nav a div.kb2-link
+    width: min(40vw, 40vh)
+    height: min(40vw, 40vh)
+    background: linear-gradient(-72deg, #000020, #000 15%, #181818)
+    span
+        font-size: 3em
+
+.kb2-notice-nav a div:hover
+    box-shadow: 0 0 2em #444 inset, 0 0 2em #222
+
+@media screen and (orientation: portrait)
+    .kb2-notice-nav
+        flex-direction: column
+        a div
+            height: 4em
+            width: min(40vw, 40vh)
+        a div.kb2-link
+            width: min(60vw, 60vh)
+            height: min(40vw, 40vh)
+    .kb2-notice-details
+        font-size: 1.2em
