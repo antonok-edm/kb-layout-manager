@@ -2,6 +2,7 @@ import { createApp } from 'vue/dist/vue.esm-bundler.js';
 
 import './styles/style.sass';
 import './favicon/favicon.ico';
+import './kb2.svg';
 
 import parseLayerMapsFile from './utils/c_parser.js';
 import createExportFormat from './utils/c_formatter.js';
